@@ -1,16 +1,22 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Status {
+
   @PrimaryGeneratedColumn()
+  @ApiProperty({ example: 1 })
   codigo: number;
 
-  @Column({ length: 50, comment: 'Teste' })
+  @Column({ length: 50 })
+  @ApiProperty({ example: "Descrição", required: true })
   descricao: string;
 
   @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
-  data_criacao: Date
+  @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
+  data_criacao: Date;
 	
   @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
-  data_atualizacao: Date
+  @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
+  data_atualizacao: Date;
 }
