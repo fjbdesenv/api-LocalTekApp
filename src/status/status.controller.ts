@@ -26,6 +26,15 @@ export class StatusController {
     return this.statusService.findAll();
   }
 
+  
+  @Get('/tipo/:tipo')
+  @ApiOperation({summary: 'Consultar todos os status'})
+  @ApiResponse({ status: 200, description: 'OK', type: [Status] })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  findAllTipo(@Param('tipo') tipo: number) {
+    return this.statusService.findAllTipo(tipo);
+  }
+
   @Get(':codigo')
   @ApiOperation({summary: 'Consultar um status'})
   @ApiResponse({ status: 200, description: 'OK', type: Status })
