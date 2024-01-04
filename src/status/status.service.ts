@@ -30,6 +30,15 @@ export class StatusService {
     }
   }
 
+  async findAllTipo(tipo: number): Promise<Array<Status>> {
+    try {
+      return await this.statusRepository.findBy({ tipo });
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+
   async findByCodigo(codigo: number): Promise<Status> {
     
     try {

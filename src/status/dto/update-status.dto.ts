@@ -1,9 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { PartialType } from "@nestjs/swagger";
+import { CreateStatusDto } from "./create-status.dto";
 
-export class UpdateStatusDto {
-  @IsString()
-  @ApiProperty({ example: "Descrição", required: true })
-  readonly descricao;
-}
+export class UpdateStatusDto extends PartialType(CreateStatusDto) {}
 
