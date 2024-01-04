@@ -10,7 +10,9 @@ export class StatusService {
 
   constructor(
     @Inject('STATUS_REPOSITORY') private statusRepository: Repository<Status>
-  ) {}
+  ) {
+    this.status = undefined;
+  }
 
   async create(createStatusDto: CreateStatusDto): Promise<Status> {
     try {
@@ -27,6 +29,15 @@ export class StatusService {
       throw new InternalServerErrorException();
     }
   }
+
+  async findAllTipo(tipo: number): Promise<Array<Status>> {
+    try {
+      return await this.statusRepository.findBy({ tipo });
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
 
   async findByCodigo(codigo: number): Promise<Status> {
     
@@ -50,7 +61,6 @@ export class StatusService {
       
       if(this.status){
         this.status = Object.assign(this.status, updateStatusDto);
-        console.log(this.status);
         
         await this.statusRepository.update({codigo}, updateStatusDto);
       }
@@ -68,18 +78,17 @@ export class StatusService {
   async remove(codigo: number): Promise<string> {
     try {
       const result:DeleteResult = await this.statusRepository.delete({ codigo });
-      if(result.affected > 0){
-        this.statusRepository.delete({ codigo });
-        this.status = new Status();
-      }
+      
+      result.affected > 0 ? this.status = new Status() : this.status = undefined;
+      
     } catch (error) {
       throw new InternalServerErrorException();
     }
-
+    
     if(!this.status){
       throw new NotFoundException();
     }else{
-      return `Resgistro de código ${codigo} removido`;
+      return `Resgistro de código ${codigo} removido.`;
     }
   }
 }
