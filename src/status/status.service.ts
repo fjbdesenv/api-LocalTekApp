@@ -50,7 +50,6 @@ export class StatusService {
       
       if(this.status){
         this.status = Object.assign(this.status, updateStatusDto);
-        console.log(this.status);
         
         await this.statusRepository.update({codigo}, updateStatusDto);
       }
