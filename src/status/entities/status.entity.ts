@@ -9,8 +9,12 @@ export class Status {
   codigo: number;
 
   @Column({ length: 50 })
-  @ApiProperty({ example: "Descrição", required: true })
+  @ApiProperty({ example: "Descrição do status", required: true })
   descricao: string;
+
+  @Column()
+  @ApiProperty({  example: 1 })
+  tipo: number;
 
   @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
   @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })

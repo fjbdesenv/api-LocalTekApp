@@ -1,8 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 export class CreateStatusDto {
   @IsString()
-  @ApiProperty({ example: "Descrição", required: true })
-  readonly descricao;
+  @ApiProperty({ example: "Descrição do status", required: true })
+  readonly descricao: string;
+  
+  @IsNumber()
+  @ApiProperty({ example: 1, required: true })
+  readonly tipo: number;
 }
