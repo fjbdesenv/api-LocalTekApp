@@ -20,16 +20,16 @@ async function start() {
   }));
 
   // Configuração Swagger
-const config = new DocumentBuilder()
-  .setTitle('Api LocalTekApp')
-  .setDescription('Api para consumo de dados LocalTekApp.')
-  .setVersion('0.1.0')
-  .build();
+  const config = new DocumentBuilder()
+    .setTitle('Api LocalTekApp')
+    .setDescription('Api para consumo de dados LocalTekApp.')
+    .setVersion('0.1.0')
+    .build();
 
-const document = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('doc', app, document);
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('doc', app, document);
 
-  await app.listen(3000);
+  await app.listen(5000);
 }
 
 start();

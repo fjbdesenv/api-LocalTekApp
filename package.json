@@ -1,8 +1,11 @@
 {
   "name": "api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "0.1.0",
+  "description": "Api LocalTekApp",
+  "author": {
+    "name": "Fábio Júnior Barbosa",
+    "email": "fjb.desenv@gmail.com"
+  },
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

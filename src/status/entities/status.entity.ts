@@ -8,7 +8,7 @@ export class Status {
   @ApiProperty({ example: 1 })
   codigo: number;
 
-  @Column({ length: 50 ,})
+  @Column({ length: 50 })
   @ApiProperty({ example: "Descrição", required: true })
   descricao: string;
 
