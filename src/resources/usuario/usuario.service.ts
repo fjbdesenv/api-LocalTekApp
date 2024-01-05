@@ -3,6 +3,7 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import { DeleteResult, Repository } from 'typeorm';
+import { messageErro } from 'src/utils/messageErro';
 
 @Injectable()
 export class UsuarioService {
