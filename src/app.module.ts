@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { StatusModule } from './status/status.module';
 import { ConfigModule, ConfigModuleOptions } from '@nestjs/config'; /* configuração env global*/
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import { StatusModule } from './resources/status/status.module';
+import { UsuarioModule } from './resources/usuario/usuario.module';
 
 const configGetEnv:ConfigModuleOptions = {
   envFilePath: ['.env.development.local', '.env.development'],
@@ -12,7 +13,8 @@ const configGetEnv:ConfigModuleOptions = {
 @Module({
   imports: [
     ConfigModule.forRoot(configGetEnv),
-    StatusModule
+    StatusModule,
+    UsuarioModule
   ],
   controllers: [AppController],
   providers: [AppService],
