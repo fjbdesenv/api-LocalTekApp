@@ -28,7 +28,7 @@ export class StatusController {
 
   
   @Get('/tipo/:tipo')
-  @ApiOperation({summary: 'Consultar todos os status'})
+  @ApiOperation({summary: 'Consultar todos os status de um tipo'})
   @ApiResponse({ status: 200, description: 'OK', type: [Status] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAllTipo(@Param('tipo') tipo: number) {
