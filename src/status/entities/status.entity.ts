@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Status {
@@ -16,11 +16,11 @@ export class Status {
   @ApiProperty({  example: 1 })
   tipo: number;
 
-  @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
+  @CreateDateColumn() /* Atualiza a data de criação automaticamente */
   @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
   data_criacao: Date;
 	
-  @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP"})
+  @UpdateDateColumn() /* Atualiza a data de atualização automaticamente */
   @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
   data_atualizacao: Date;
 }
