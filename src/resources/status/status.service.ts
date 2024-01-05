@@ -3,6 +3,7 @@ import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { DeleteResult, Repository } from 'typeorm';
 import { Status } from './entities/status.entity';
+import { ERROR } from 'src/utils/error';
 
 @Injectable()
 export class StatusService {
@@ -18,7 +19,7 @@ export class StatusService {
     try {
       return await this.statusRepository.save(createStatusDto);
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
   }
 
@@ -26,7 +27,7 @@ export class StatusService {
     try {
       return await this.statusRepository.find();
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
   }
 
@@ -34,7 +35,7 @@ export class StatusService {
     try {
       return await this.statusRepository.findBy({ tipo });
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
   }
 
@@ -44,7 +45,7 @@ export class StatusService {
     try {
       this.status = await this.statusRepository.findOneBy({ codigo });
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
 
     if(!this.status){
@@ -65,7 +66,7 @@ export class StatusService {
         await this.statusRepository.update({codigo}, updateStatusDto);
       }
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
 
     if(!this.status){
@@ -82,7 +83,7 @@ export class StatusService {
       result.affected > 0 ? this.status = new Status() : this.status = undefined;
       
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
     
     if(!this.status){

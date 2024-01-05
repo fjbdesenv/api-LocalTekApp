@@ -3,7 +3,7 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import { DeleteResult, Repository } from 'typeorm';
-import { messageErro } from 'src/utils/messageErro';
+import { ERROR } from 'src/utils/error';
 
 @Injectable()
 export class UsuarioService {
@@ -19,7 +19,7 @@ export class UsuarioService {
     try {
       return await this.usuarioRepository.save(createUsuarioDto);
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
   }
 
@@ -27,7 +27,7 @@ export class UsuarioService {
     try {
       return await this.usuarioRepository.find();
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
   }
 
@@ -36,7 +36,7 @@ export class UsuarioService {
     try {
       this.usuario = await this.usuarioRepository.findOneBy({ codigo });
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
 
     if(!this.usuario){
@@ -57,7 +57,7 @@ export class UsuarioService {
         await this.usuarioRepository.update({codigo}, updateUsuarioDto);
       }
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
 
     if(!this.usuario){
@@ -74,7 +74,7 @@ export class UsuarioService {
       result.affected > 0 ? this.usuario = new Usuario() : this.usuario = undefined;
       
     } catch (error) {
-      throw new InternalServerErrorException();
+      ERROR.erro500(error.message);
     }
     
     if(!this.usuario){
