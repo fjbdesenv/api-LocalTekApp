@@ -11,7 +11,7 @@ export class StatusController {
   constructor(private readonly statusService: StatusService) {}
 
   @Post()
-  @ApiOperation({summary: 'Cadastrar um novo status.'})
+  @ApiOperation({summary: 'Cadastrar um novo status'})
   @ApiResponse({ status: 201, description: 'Created', type: Status })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(@Body() createStatusDto: CreateStatusDto) {
