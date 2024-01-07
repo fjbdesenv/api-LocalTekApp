@@ -13,14 +13,14 @@ export class Status {
   descricao: string;
 
   @Column()
-  @ApiProperty({  example: 1 })
+  @ApiProperty({ example: 1 })
   tipo: number;
 
   @CreateDateColumn() /* Atualiza a data de criação automaticamente */
-  @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
+  @ApiProperty({ example: "2024-01-04T13:38:56.000Z" })
   data_criacao: Date;
-	
+
   @UpdateDateColumn() /* Atualiza a data de atualização automaticamente */
-  @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
+  @ApiProperty({ example: "2024-01-04T13:38:56.000Z" })
   data_atualizacao: Date;
 }
