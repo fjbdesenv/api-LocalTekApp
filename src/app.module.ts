@@ -6,6 +6,7 @@ import { StatusModule } from './resources/status/status.module';
 import { UsuarioModule } from './resources/usuario/usuario.module';
 import { ClienteModule } from './resources/cliente/cliente.module';
 import { AtendimentoModule } from './resources/atendimento/atendimento.module';
+import { BancoModule } from './resources/banco/banco.module';
 
 const configGetEnv:ConfigModuleOptions = {
   envFilePath: ['.env.development.local', '.env.development'],
@@ -18,7 +19,8 @@ const configGetEnv:ConfigModuleOptions = {
     StatusModule,
     UsuarioModule,
     ClienteModule,
-    AtendimentoModule
+    AtendimentoModule,
+    BancoModule
   ],
   controllers: [AppController],
   providers: [AppService],
