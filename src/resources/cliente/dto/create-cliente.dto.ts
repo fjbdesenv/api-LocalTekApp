@@ -4,7 +4,7 @@ import { IsEmail, IsNumber, IsString, Length, MaxLength } from "class-validator"
 export class CreateClienteDto {
 
     @IsNumber()
-    @ApiProperty({ example: 10, default: 1, required: true })
+    @ApiProperty({ example: 1, default: 1, required: true })
     codigo_status: number;
 
     @IsString()
