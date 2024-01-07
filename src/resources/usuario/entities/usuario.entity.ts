@@ -1,13 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { DefaultEntity } from "src/class/DefaultEntity";
 import { Status } from "src/resources/status/entities/status.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
-export class Usuario{
-
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ example: 1 })
-  codigo: number;
+export class Usuario extends DefaultEntity {
 
   @Column()
   @ApiProperty({ example: 1, required: true })
@@ -28,14 +25,6 @@ export class Usuario{
   @Column({ type: 'tinyint', select: false, comment: '1 - Cliente | 2 - Usuário | 3 - Administrador' })
   @ApiProperty({ example: 1, required: true })
   nivel: number;
-
-  @CreateDateColumn()
-  @ApiProperty({ example: "2024-01-04T13:38:56.000Z" })
-  data_criacao: Date;
-
-  @UpdateDateColumn()
-  @ApiProperty({ example: "2024-01-04T13:38:56.000Z" })
-  data_atualizacao: Date;
 
   /* Chaves estrangeiras */
   @ManyToOne(type => Status)
