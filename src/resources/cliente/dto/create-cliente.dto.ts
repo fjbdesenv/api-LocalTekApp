@@ -1,11 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNumber, IsString, Length, MaxLength } from "class-validator";
+import { IsEmail, IsNumber, IsString, Length, MaxLength, Min } from "class-validator";
 
 export class CreateClienteDto {
 
     @IsNumber()
-    @ApiProperty({ example: 10, default: 1, required: true })
+    @ApiProperty({ example: 1, default: 1, required: true })
     codigo_status: number;
+
+    @IsNumber()
+    @Min(1)
+    @ApiProperty({ example: 1000, required: true })
+    codigo_cliente_tek: number;
 
     @IsString()
     @MaxLength(100)
