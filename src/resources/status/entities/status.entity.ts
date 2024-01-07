@@ -1,26 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { DefaultEntity } from 'src/class/DefaultEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
-export class Status {
-
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ example: 1 })
-  codigo: number;
+export class Status extends DefaultEntity {
 
   @Column({ length: 50 })
   @ApiProperty({ example: "Descrição do status", required: true })
   descricao: string;
 
   @Column()
-  @ApiProperty({  example: 1 })
+  @ApiProperty({ example: 1 })
   tipo: number;
 
-  @CreateDateColumn() /* Atualiza a data de criação automaticamente */
-  @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
-  data_criacao: Date;
-	
-  @UpdateDateColumn() /* Atualiza a data de atualização automaticamente */
-  @ApiProperty({  example: "2024-01-04T13:38:56.000Z" })
-  data_atualizacao: Date;
 }
