@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { DeleteResult, Repository } from 'typeorm';
