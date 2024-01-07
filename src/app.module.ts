@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { StatusModule } from './resources/status/status.module';
 import { UsuarioModule } from './resources/usuario/usuario.module';
 import { ClienteModule } from './resources/cliente/cliente.module';
+import { AtendimentoModule } from './resources/atendimento/atendimento.module';
 
 const configGetEnv:ConfigModuleOptions = {
   envFilePath: ['.env.development.local', '.env.development'],
@@ -16,7 +17,8 @@ const configGetEnv:ConfigModuleOptions = {
     ConfigModule.forRoot(configGetEnv),
     StatusModule,
     UsuarioModule,
-    ClienteModule
+    ClienteModule,
+    AtendimentoModule
   ],
   controllers: [AppController],
   providers: [AppService],
