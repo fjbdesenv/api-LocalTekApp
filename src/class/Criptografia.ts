@@ -3,7 +3,7 @@ import { hash, compare } from 'bcrypt';
 export class Criptografia {
   private saltOrRounds: number;
 
-  constructor(){
+  constructor() {
     this.saltOrRounds = 10;
   }
 
@@ -11,7 +11,7 @@ export class Criptografia {
     return await hash(senha, this.saltOrRounds);
   }
 
-  async comparar(senha, senhaCriptografada): Promise<boolean>{
+  async comparar(senha, senhaCriptografada): Promise<boolean> {
     return await compare(senha, senhaCriptografada);
   }
 }

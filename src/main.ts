@@ -3,27 +3,29 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-
-// Necessário instalar: 
-//    class-validator 
+// Necessário instalar:
+//    class-validator
 //    class-transformer
-//    @nestjs/swagger 
+//    @nestjs/swagger
 //    @nestjs/mapped-types
 
 async function start() {
   const app = await NestFactory.create(AppModule);
 
   // Validação de campos
-  app.useGlobalPipes( new ValidationPipe({
-    whitelist: true,  /* Aceita apenas o que estiver na class dto */
-    forbidNonWhitelisted: true, /* Não permite o cadastro que estiver com campos não listado */
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true /* Aceita apenas o que estiver na class dto */,
+      forbidNonWhitelisted:
+        true /* Não permite o cadastro que estiver com campos não listado */,
+    }),
+  );
 
   // Configuração Swagger
   const config = new DocumentBuilder()
     .setTitle('Api LocalTekApp')
     .setDescription('Api para consumo de dados LocalTekApp.')
-    .setVersion('0.5.0')
+    .setVersion('0.6.1')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

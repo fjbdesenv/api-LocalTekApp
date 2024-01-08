@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 
-const DATABASE_PORT = process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT) : 3306;  
+const DATABASE_PORT = process.env.DATABASE_PORT
+  ? parseInt(process.env.DATABASE_PORT)
+  : 3306;
 
 export const databaseProviders = [
   {
@@ -13,14 +15,11 @@ export const databaseProviders = [
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        entities: [
-            __dirname + '/../**/*.entity{.ts,.js}',
-        ],
-        synchronize: true, /* Remover no ambiente de produção */
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        synchronize: true /* Remover no ambiente de produção */,
       });
 
       return dataSource.initialize();
     },
   },
 ];
-

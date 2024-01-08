@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -13,13 +21,13 @@ export class UsuarioController {
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo usuário' })
   @ApiResponse({ status: 201, description: 'Created', type: Usuario })
-  @ApiResponse({ status:401, description: 'Unauthorized' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
     return this.usuarioService.create(createUsuarioDto);
   }
 
   @Get()
-  @ApiOperation({summary: 'Consultar todos os usuário'})
+  @ApiOperation({ summary: 'Consultar todos os usuário' })
   @ApiResponse({ status: 200, description: 'OK', type: [Usuario] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll() {
@@ -27,7 +35,7 @@ export class UsuarioController {
   }
 
   @Get(':codigo')
-  @ApiOperation({summary: 'Consultar um status'})
+  @ApiOperation({ summary: 'Consultar um status' })
   @ApiResponse({ status: 200, description: 'OK', type: Usuario })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -36,16 +44,19 @@ export class UsuarioController {
   }
 
   @Patch(':codigo')
-  @ApiOperation({summary: 'Editar um usuário'})
+  @ApiOperation({ summary: 'Editar um usuário' })
   @ApiResponse({ status: 200, description: 'OK', type: Usuario })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  update(@Param('codigo') codigo: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+  update(
+    @Param('codigo') codigo: string,
+    @Body() updateUsuarioDto: UpdateUsuarioDto,
+  ) {
     return this.usuarioService.update(+codigo, updateUsuarioDto);
   }
 
   @Delete(':codigo')
-  @ApiOperation({summary: 'Deletar um usuário'})
+  @ApiOperation({ summary: 'Deletar um usuário' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
