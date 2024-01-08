@@ -14,7 +14,7 @@ async function start() {
   const app = await NestFactory.create(AppModule);
 
   // Validação de campos
-  app.useGlobalPipes( new ValidationPipe({
+  app.useGlobalPipes(new ValidationPipe({
     whitelist: true,  /* Aceita apenas o que estiver na class dto */
     forbidNonWhitelisted: true, /* Não permite o cadastro que estiver com campos não listado */
   }));
@@ -23,7 +23,7 @@ async function start() {
   const config = new DocumentBuilder()
     .setTitle('Api LocalTekApp')
     .setDescription('Api para consumo de dados LocalTekApp.')
-    .setVersion('0.5.0')
+    .setVersion('0.6.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
