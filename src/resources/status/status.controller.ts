@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
@@ -11,7 +19,7 @@ export class StatusController {
   constructor(private readonly statusService: StatusService) {}
 
   @Post()
-  @ApiOperation({summary: 'Cadastrar um novo status'})
+  @ApiOperation({ summary: 'Cadastrar um novo status' })
   @ApiResponse({ status: 201, description: 'Created', type: Status })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(@Body() createStatusDto: CreateStatusDto) {
@@ -19,16 +27,15 @@ export class StatusController {
   }
 
   @Get()
-  @ApiOperation({summary: 'Consultar todos os status'})
+  @ApiOperation({ summary: 'Consultar todos os status' })
   @ApiResponse({ status: 200, description: 'OK', type: [Status] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll() {
     return this.statusService.findAll();
   }
 
-  
   @Get('/tipo/:tipo')
-  @ApiOperation({summary: 'Consultar todos os status de um tipo'})
+  @ApiOperation({ summary: 'Consultar todos os status de um tipo' })
   @ApiResponse({ status: 200, description: 'OK', type: [Status] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAllTipo(@Param('tipo') tipo: number) {
@@ -36,7 +43,7 @@ export class StatusController {
   }
 
   @Get(':codigo')
-  @ApiOperation({summary: 'Consultar um status'})
+  @ApiOperation({ summary: 'Consultar um status' })
   @ApiResponse({ status: 200, description: 'OK', type: Status })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -45,16 +52,19 @@ export class StatusController {
   }
 
   @Patch(':codigo')
-  @ApiOperation({summary: 'Editar um status'})
+  @ApiOperation({ summary: 'Editar um status' })
   @ApiResponse({ status: 200, description: 'OK', type: Status })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  update(@Param('codigo') codigo: string, @Body() updateStatusDto: UpdateStatusDto) {
+  update(
+    @Param('codigo') codigo: string,
+    @Body() updateStatusDto: UpdateStatusDto,
+  ) {
     return this.statusService.update(+codigo, updateStatusDto);
   }
 
   @Delete(':codigo')
-  @ApiOperation({summary: 'Deletar um status'})
+  @ApiOperation({ summary: 'Deletar um status' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

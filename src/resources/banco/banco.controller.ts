@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { BancoService } from './banco.service';
 import { CreateBancoDto } from './dto/create-banco.dto';
 import { UpdateBancoDto } from './dto/update-banco.dto';
@@ -13,13 +21,13 @@ export class BancoController {
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo banco' })
   @ApiResponse({ status: 201, description: 'Created', type: Banco })
-  @ApiResponse({ status:401, description: 'Unauthorized' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(@Body() createBancoDto: CreateBancoDto) {
     return this.bancoService.create(createBancoDto);
   }
 
   @Get()
-  @ApiOperation({summary: 'Consultar todos os banco'})
+  @ApiOperation({ summary: 'Consultar todos os banco' })
   @ApiResponse({ status: 200, description: 'OK', type: [Banco] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll() {
@@ -27,7 +35,7 @@ export class BancoController {
   }
 
   @Get(':codigo')
-  @ApiOperation({summary: 'Consultar um banco'})
+  @ApiOperation({ summary: 'Consultar um banco' })
   @ApiResponse({ status: 200, description: 'OK', type: Banco })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -36,16 +44,19 @@ export class BancoController {
   }
 
   @Patch(':codigo')
-  @ApiOperation({summary: 'Editar um banco'})
+  @ApiOperation({ summary: 'Editar um banco' })
   @ApiResponse({ status: 200, description: 'OK', type: Banco })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  update(@Param('codigo') codigo: string, @Body() updateBancoDto: UpdateBancoDto) {
+  update(
+    @Param('codigo') codigo: string,
+    @Body() updateBancoDto: UpdateBancoDto,
+  ) {
     return this.bancoService.update(+codigo, updateBancoDto);
   }
 
   @Delete(':codigo')
-  @ApiOperation({summary: 'Deletar um banco'})
+  @ApiOperation({ summary: 'Deletar um banco' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

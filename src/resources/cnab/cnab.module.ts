@@ -9,4 +9,4 @@ import { cnabProvider } from './cnab.provider';
   controllers: [CnabController],
   providers: [CnabService, ...cnabProvider],
 })
-export class CnabModule { }
+export class CnabModule {}

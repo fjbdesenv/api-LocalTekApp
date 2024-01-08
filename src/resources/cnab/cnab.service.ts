@@ -11,7 +11,7 @@ export class CnabService {
   private error: ErroSystem;
 
   constructor(
-    @Inject('CNAB_REPOSITORY') private cnabRepository: Repository<Cnab>
+    @Inject('CNAB_REPOSITORY') private cnabRepository: Repository<Cnab>,
   ) {
     this.cnab = undefined;
     this.error = new ErroSystem();
@@ -33,9 +33,7 @@ export class CnabService {
     }
   }
 
-
   async findByCodigo(codigo: number): Promise<Cnab> {
-
     try {
       this.cnab = await this.cnabRepository.findOneBy({ codigo });
     } catch (error) {
@@ -50,7 +48,6 @@ export class CnabService {
   }
 
   async update(codigo: number, updateCnabDto: UpdateCnabDto): Promise<Cnab> {
-
     try {
       this.cnab = await this.cnabRepository.findOneBy({ codigo });
 
@@ -74,8 +71,7 @@ export class CnabService {
     try {
       const result: DeleteResult = await this.cnabRepository.delete({ codigo });
 
-      result.affected > 0 ? this.cnab = new Cnab() : this.cnab = undefined;
-
+      result.affected > 0 ? (this.cnab = new Cnab()) : (this.cnab = undefined);
     } catch (error) {
       this.error.erro500(error.message);
     }

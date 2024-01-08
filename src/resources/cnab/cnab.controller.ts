@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CnabService } from './cnab.service';
 import { CreateCnabDto } from './dto/create-cnab.dto';
 import { UpdateCnabDto } from './dto/update-cnab.dto';
@@ -8,7 +16,7 @@ import { Cnab } from './entities/cnab.entity';
 @ApiTags('Cnab')
 @Controller('cnab')
 export class CnabController {
-  constructor(private readonly cnabService: CnabService) { }
+  constructor(private readonly cnabService: CnabService) {}
 
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo cnab' })
@@ -40,7 +48,10 @@ export class CnabController {
   @ApiResponse({ status: 200, description: 'OK', type: Cnab })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  update(@Param('codigo') codigo: string, @Body() updateCnabDto: UpdateCnabDto) {
+  update(
+    @Param('codigo') codigo: string,
+    @Body() updateCnabDto: UpdateCnabDto,
+  ) {
     return this.cnabService.update(+codigo, updateCnabDto);
   }
 
