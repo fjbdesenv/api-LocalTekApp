@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AtendimentoService } from './atendimento.service';
 import { CreateAtendimentoDto } from './dto/create-atendimento.dto';
 import { UpdateAtendimentoDto } from './dto/update-atendimento.dto';
@@ -11,7 +19,7 @@ export class AtendimentoController {
   constructor(private readonly atendimentoService: AtendimentoService) {}
 
   @Post()
-  @ApiOperation({summary: 'Cadastrar um novo atendimento'})
+  @ApiOperation({ summary: 'Cadastrar um novo atendimento' })
   @ApiResponse({ status: 201, description: 'Created', type: Atendimento })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(@Body() createAtendimentoDto: CreateAtendimentoDto) {
@@ -19,7 +27,7 @@ export class AtendimentoController {
   }
 
   @Get()
-  @ApiOperation({summary: 'Consultar todos os atendimento'})
+  @ApiOperation({ summary: 'Consultar todos os atendimento' })
   @ApiResponse({ status: 200, description: 'OK', type: [Atendimento] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll() {
@@ -27,7 +35,7 @@ export class AtendimentoController {
   }
 
   @Get(':codigo')
-  @ApiOperation({summary: 'Consultar um atendimento'})
+  @ApiOperation({ summary: 'Consultar um atendimento' })
   @ApiResponse({ status: 200, description: 'OK', type: Atendimento })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -36,16 +44,19 @@ export class AtendimentoController {
   }
 
   @Patch(':codigo')
-  @ApiOperation({summary: 'Editar um atendimento'})
+  @ApiOperation({ summary: 'Editar um atendimento' })
   @ApiResponse({ status: 200, description: 'OK', type: Atendimento })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  update(@Param('codigo') codigo: string, @Body() updateAtendimentoDto: UpdateAtendimentoDto) {
+  update(
+    @Param('codigo') codigo: string,
+    @Body() updateAtendimentoDto: UpdateAtendimentoDto,
+  ) {
     return this.atendimentoService.update(+codigo, updateAtendimentoDto);
   }
 
   @Delete(':codigo')
-  @ApiOperation({summary: 'Deletar um atendimento'})
+  @ApiOperation({ summary: 'Deletar um atendimento' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

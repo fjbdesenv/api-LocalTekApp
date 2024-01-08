@@ -1,11 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { DefaultEntity } from "src/class/DefaultEntity";
-import { Status } from "src/resources/status/entities/status.entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { ApiProperty } from '@nestjs/swagger';
+import { DefaultEntity } from 'src/class/DefaultEntity';
+import { Status } from 'src/resources/status/entities/status.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Usuario extends DefaultEntity {
-
   @Column()
   @ApiProperty({ example: 1, required: true })
   codigo_status: number;
@@ -22,13 +21,19 @@ export class Usuario extends DefaultEntity {
   @ApiProperty({ example: 'senhaAlterar', required: true })
   senha: string;
 
-  @Column({ type: 'tinyint', select: false, comment: '1 - Cliente | 2 - Usuário | 3 - Administrador' })
+  @Column({
+    type: 'tinyint',
+    select: false,
+    comment: '1 - Cliente | 2 - Usuário | 3 - Administrador',
+  })
   @ApiProperty({ example: 1, required: true })
   nivel: number;
 
   /* Chaves estrangeiras */
-  @ManyToOne(type => Status)
-  @JoinColumn({ name: 'codigo_status', foreignKeyConstraintName: 'fk_usuaio_status' })
+  @ManyToOne((type) => Status)
+  @JoinColumn({
+    name: 'codigo_status',
+    foreignKeyConstraintName: 'fk_usuaio_status',
+  })
   status: Status;
-
 }

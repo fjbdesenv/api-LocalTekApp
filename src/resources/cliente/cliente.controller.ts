@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
@@ -11,7 +19,7 @@ export class ClienteController {
   constructor(private readonly clienteService: ClienteService) {}
 
   @Post()
-  @ApiOperation({summary: 'Cadastrar um novo cliente'})
+  @ApiOperation({ summary: 'Cadastrar um novo cliente' })
   @ApiResponse({ status: 201, description: 'Created', type: Cliente })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(@Body() createClienteDto: CreateClienteDto) {
@@ -19,7 +27,7 @@ export class ClienteController {
   }
 
   @Get()
-  @ApiOperation({summary: 'Consultar todos os cliente'})
+  @ApiOperation({ summary: 'Consultar todos os cliente' })
   @ApiResponse({ status: 200, description: 'OK', type: [Cliente] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll() {
@@ -27,7 +35,7 @@ export class ClienteController {
   }
 
   @Get(':codigo')
-  @ApiOperation({summary: 'Consultar um cliente'})
+  @ApiOperation({ summary: 'Consultar um cliente' })
   @ApiResponse({ status: 200, description: 'OK', type: Cliente })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -36,16 +44,19 @@ export class ClienteController {
   }
 
   @Patch(':codigo')
-  @ApiOperation({summary: 'Editar um cliente'})
+  @ApiOperation({ summary: 'Editar um cliente' })
   @ApiResponse({ status: 200, description: 'OK', type: Cliente })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  update(@Param('codigo') codigo: string, @Body() updateClienteDto: UpdateClienteDto) {
+  update(
+    @Param('codigo') codigo: string,
+    @Body() updateClienteDto: UpdateClienteDto,
+  ) {
     return this.clienteService.update(+codigo, updateClienteDto);
   }
 
   @Delete(':codigo')
-  @ApiOperation({summary: 'Deletar um cliente'})
+  @ApiOperation({ summary: 'Deletar um cliente' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

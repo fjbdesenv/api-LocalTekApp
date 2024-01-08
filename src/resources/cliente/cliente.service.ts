@@ -7,11 +7,12 @@ import { DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class ClienteService {
-  private cliente:Cliente;
+  private cliente: Cliente;
   private error: ErroSystem;
 
   constructor(
-    @Inject('CLIENTE_REPOSITORY') private clienteRepository: Repository<Cliente>
+    @Inject('CLIENTE_REPOSITORY')
+    private clienteRepository: Repository<Cliente>,
   ) {
     this.cliente = undefined;
     this.error = new ErroSystem();
@@ -34,54 +35,58 @@ export class ClienteService {
   }
 
   async findByCodigo(codigo: number): Promise<Cliente> {
-    
     try {
       this.cliente = await this.clienteRepository.findOneBy({ codigo });
     } catch (error) {
       this.error.erro500(error.message);
     }
 
-    if(!this.cliente){
+    if (!this.cliente) {
       throw new NotFoundException();
-    }else{
+    } else {
       return this.cliente;
-    }  
+    }
   }
 
-  async update(codigo: number, updateClienteDto: UpdateClienteDto): Promise<Cliente> {
-     
+  async update(
+    codigo: number,
+    updateClienteDto: UpdateClienteDto,
+  ): Promise<Cliente> {
     try {
       this.cliente = await this.clienteRepository.findOneBy({ codigo });
-      
-      if(this.cliente){
+
+      if (this.cliente) {
         this.cliente = Object.assign(this.cliente, updateClienteDto);
-        
-        await this.clienteRepository.update({codigo}, updateClienteDto);
+
+        await this.clienteRepository.update({ codigo }, updateClienteDto);
       }
     } catch (error) {
       this.error.erro500(error.message);
     }
 
-    if(!this.cliente){
+    if (!this.cliente) {
       throw new NotFoundException();
-    }else{
+    } else {
       return this.cliente;
-    }  
+    }
   }
 
   async remove(codigo: number): Promise<string> {
     try {
-      const result:DeleteResult = await this.clienteRepository.delete({ codigo });
-      
-      result.affected > 0 ? this.cliente = new Cliente() : this.cliente = undefined;
-      
+      const result: DeleteResult = await this.clienteRepository.delete({
+        codigo,
+      });
+
+      result.affected > 0
+        ? (this.cliente = new Cliente())
+        : (this.cliente = undefined);
     } catch (error) {
       this.error.erro500(error.message);
     }
-    
-    if(!this.cliente){
+
+    if (!this.cliente) {
       throw new NotFoundException();
-    }else{
+    } else {
       return `Resgistro de código ${codigo} removido.`;
     }
   }
