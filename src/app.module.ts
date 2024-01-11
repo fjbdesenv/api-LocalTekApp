@@ -11,6 +11,7 @@ import { ClienteModule } from './resources/cliente/cliente.module';
 import { AtendimentoModule } from './resources/atendimento/atendimento.module';
 import { BancoModule } from './resources/banco/banco.module';
 import { CnabModule } from './resources/cnab/cnab.module';
+import { ConfRemessaModule } from './resources/conf-remessa/conf-remessa.module';
 
 const configGetEnv: ConfigModuleOptions = {
   envFilePath: ['.env.development.local', '.env.development'],
@@ -26,6 +27,7 @@ const configGetEnv: ConfigModuleOptions = {
     AtendimentoModule,
     BancoModule,
     CnabModule,
+    ConfRemessaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
