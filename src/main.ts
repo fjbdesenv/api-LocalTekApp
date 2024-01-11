@@ -25,7 +25,7 @@ async function start() {
   const config = new DocumentBuilder()
     .setTitle('Api LocalTekApp')
     .setDescription('Api para consumo de dados LocalTekApp.')
-    .setVersion('0.6.1')
+    .setVersion('0.7.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
