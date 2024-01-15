@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 // Necessário instalar:
 //    class-validator
@@ -30,6 +31,13 @@ async function start() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);
+
+  app.use(
+    helmet({
+      crossOriginEmbedderPolicy: true,
+      crossOriginResourcePolicy: { policy: 'same-site' },
+    }),
+  );
 
   await app.listen(5000);
 }
