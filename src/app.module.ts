@@ -11,7 +11,7 @@ import { ClienteModule } from './resources/cliente/cliente.module';
 import { AtendimentoModule } from './resources/atendimento/atendimento.module';
 import { BancoModule } from './resources/banco/banco.module';
 import { CnabModule } from './resources/cnab/cnab.module';
-import { ConfRemessaModule } from './resources/conf-remessa/conf-remessa.module';
+import { RemessaFinanceiraModule } from './resources/remessaFinanceira/remessaFinanceira.module';
 import { AuthModule } from './auth/auth.module';
 
 const configGetEnv: ConfigModuleOptions = {
@@ -22,16 +22,16 @@ const configGetEnv: ConfigModuleOptions = {
 @Module({
   imports: [
     AuthModule,
-    ConfigModule.forRoot(configGetEnv),
-    StatusModule,
     UsuarioModule,
     ClienteModule,
     AtendimentoModule,
     BancoModule,
     CnabModule,
-    ConfRemessaModule,
+    RemessaFinanceiraModule,
+    StatusModule,
+    ConfigModule.forRoot(configGetEnv),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
