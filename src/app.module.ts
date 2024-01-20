@@ -12,6 +12,7 @@ import { AtendimentoModule } from './resources/atendimento/atendimento.module';
 import { BancoModule } from './resources/banco/banco.module';
 import { CnabModule } from './resources/cnab/cnab.module';
 import { ConfRemessaModule } from './resources/conf-remessa/conf-remessa.module';
+import { AuthModule } from './auth/auth.module';
 
 const configGetEnv: ConfigModuleOptions = {
   envFilePath: ['.env.development.local', '.env.development'],
@@ -20,6 +21,7 @@ const configGetEnv: ConfigModuleOptions = {
 
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot(configGetEnv),
     StatusModule,
     UsuarioModule,
