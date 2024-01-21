@@ -1,10 +1,11 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { Criptografia } from 'src/class/Criptografia';
 import { ErroSystem } from 'src/class/Erro';
+import { AuthDto } from 'src/auth/dto/auth.dto';
 
 @Injectable()
 export class UsuarioService {
@@ -41,7 +42,14 @@ export class UsuarioService {
 
   async findAll(): Promise<Array<Usuario>> {
     try {
-      return await this.usuarioRepository.find();
+      const usuarios: Array<Usuario> = await this.usuarioRepository.find();
+
+      usuarios.forEach(usuario => {
+        usuario.senha = undefined;
+        usuario.nivel = undefined;
+      })
+
+      return usuarios;
     } catch (error) {
       this.error.erro500(error.message);
     }
@@ -50,12 +58,38 @@ export class UsuarioService {
   async findByCodigo(codigo: number): Promise<Usuario> {
     try {
       this.usuario = await this.usuarioRepository.findOneBy({ codigo });
+      
+      this.usuario.senha = undefined;
+      this.usuario.nivel = undefined;
+
     } catch (error) {
       this.error.erro500(error.message);
     }
 
     if (!this.usuario) {
       throw new NotFoundException();
+    } else {
+      return this.usuario;
+    }
+  }
+
+  async findAuth(auth: AuthDto): Promise<Usuario> {
+    try {
+      const { email, senha } = auth;
+
+      this.usuario = await this.usuarioRepository.findOneBy({ email });
+
+      if (this.usuario) {
+        const resultado = await this.criptografia.comparar(senha, this.usuario.senha);
+        if (!resultado) this.usuario = undefined;
+      }
+
+    } catch (error) {
+      this.error.erro500(error.message);
+    }
+
+    if (!this.usuario) {
+      throw new UnauthorizedException();
     } else {
       return this.usuario;
     }

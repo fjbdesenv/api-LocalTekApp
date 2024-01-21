@@ -17,13 +17,12 @@ export class Usuario extends DefaultEntity {
   @ApiProperty({ example: 'email@email.com', required: true })
   email: string;
 
-  @Column({ length: 100, select: false })
+  @Column({ length: 100 })
   @ApiProperty({ example: 'senhaAlterar', required: true })
   senha: string;
 
   @Column({
     type: 'tinyint',
-    select: false,
     comment: '1 - Cliente | 2 - Usuário | 3 - Administrador',
   })
   @ApiProperty({ example: 1, required: true })

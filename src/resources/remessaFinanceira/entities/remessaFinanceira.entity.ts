@@ -7,7 +7,7 @@ import { Status } from 'src/resources/status/entities/status.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
-export class ConfRemessa extends DefaultEntity {
+export class RemessaFinanceira extends DefaultEntity {
   @Column()
   @ApiProperty({ example: 1, required: true })
   codigo_status: number;
@@ -120,28 +120,28 @@ export class ConfRemessa extends DefaultEntity {
   @ManyToOne((type) => Status)
   @JoinColumn({
     name: 'codigo_status',
-    foreignKeyConstraintName: 'fk_conf_remessa_status',
+    foreignKeyConstraintName: 'fk_remessaFinanceira_status',
   })
   status: Status;
 
   @ManyToOne((type) => Banco)
   @JoinColumn({
     name: 'codigo_banco',
-    foreignKeyConstraintName: 'fk_conf_remessa_banco',
+    foreignKeyConstraintName: 'fk_remessaFinanceira_banco',
   })
   banco: Banco;
 
   @ManyToOne((type) => Atendimento)
   @JoinColumn({
     name: 'codigo_atendimento',
-    foreignKeyConstraintName: 'fk_conf_remessa_atendimento',
+    foreignKeyConstraintName: 'fk_remessaFinanceira_atendimento',
   })
   atendimento: Atendimento;
 
   @ManyToOne((type) => Cnab)
   @JoinColumn({
     name: 'codigo_cnab',
-    foreignKeyConstraintName: 'fk_conf_remessa_cnab',
+    foreignKeyConstraintName: 'fk_remessaFinanceira_cnab',
   })
   cnab: Cnab;
 }

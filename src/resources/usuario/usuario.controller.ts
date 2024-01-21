@@ -7,12 +7,13 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from './entities/usuario.entity';
 
+@ApiBearerAuth()
 @ApiTags('Usuário')
 @Controller('usuario')
 export class UsuarioController {

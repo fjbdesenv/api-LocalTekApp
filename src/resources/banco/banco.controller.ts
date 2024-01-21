@@ -10,13 +10,14 @@ import {
 import { BancoService } from './banco.service';
 import { CreateBancoDto } from './dto/create-banco.dto';
 import { UpdateBancoDto } from './dto/update-banco.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Banco } from './entities/banco.entity';
 
+@ApiBearerAuth()
 @ApiTags('Banco')
 @Controller('banco')
 export class BancoController {
-  constructor(private readonly bancoService: BancoService) {}
+  constructor(private readonly bancoService: BancoService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo banco' })

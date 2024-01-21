@@ -10,13 +10,14 @@ import {
 import { AtendimentoService } from './atendimento.service';
 import { CreateAtendimentoDto } from './dto/create-atendimento.dto';
 import { UpdateAtendimentoDto } from './dto/update-atendimento.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Atendimento } from './entities/atendimento.entity';
 
+@ApiBearerAuth()
 @ApiTags('Atendimento')
 @Controller('atendimento')
 export class AtendimentoController {
-  constructor(private readonly atendimentoService: AtendimentoService) {}
+  constructor(private readonly atendimentoService: AtendimentoService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo atendimento' })
