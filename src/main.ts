@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { configApp } from './config/configApp';
 
 // Necessário instalar:
 //    class-validator
@@ -22,15 +23,7 @@ async function start() {
     }),
   );
 
-  // Configuração Swagger
-  const config = new DocumentBuilder()
-    .setTitle('Api LocalTekApp')
-    .setDescription('Api para consumo de dados LocalTekApp.')
-    .setVersion('0.8.2')
-    .addBearerAuth()
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, configApp);
   SwaggerModule.setup('doc', app, document);
 
   app.use(
@@ -40,7 +33,7 @@ async function start() {
     }),
   );
 
-  await app.listen(5000);
+  await app.listen(process.env.APP_PORT);
 }
 
 start();
