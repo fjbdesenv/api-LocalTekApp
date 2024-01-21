@@ -10,9 +10,10 @@ import {
 import { RemessaFinanceiraService } from './remessaFinanceira.service';
 import { CreateRemessaFinanceiraDto } from './dto/create-remessaFinanceira.dto';
 import { UpdateRemessaFinanceiraDto } from './dto/update-remessaFinanceira.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RemessaFinanceira } from './entities/remessaFinanceira.entity';
 
+@ApiBearerAuth()
 @ApiTags('Remessa Financeira')
 @Controller('remessa-financeira')
 export class RemessaFinanceiraController {

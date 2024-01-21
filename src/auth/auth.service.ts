@@ -3,7 +3,6 @@ import { JwtService } from "@nestjs/jwt";
 import { AuthDto } from './dto/auth.dto';
 import { Usuario } from 'src/resources/usuario/entities/usuario.entity';
 import { UsuarioService } from 'src/resources/usuario/usuario.service';
-import { Token } from './Token';
 
 @Injectable()
 export class AuthService {
@@ -25,14 +24,7 @@ export class AuthService {
     const { codigo, email, nivel } = payload;
     return this.jwtService.sign(
       { codigo, email, nivel },
-      { secret: process.env.JWT_SECRET, expiresIn: '30d' }
-    );
-  }
-
-  verificarToken({ token }: Token) {
-    return this.jwtService.verify(
-      token,
-      { secret: process.env.JWT_SECRET }
+      { secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRES || "30d" }
     );
   }
 }

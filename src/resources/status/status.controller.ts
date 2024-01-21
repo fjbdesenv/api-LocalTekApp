@@ -7,16 +7,17 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { StatusService } from './status.service';
 import { Status } from './entities/status.entity';
 
+@ApiBearerAuth()
 @ApiTags('Status')
 @Controller('status')
 export class StatusController {
-  constructor(private readonly statusService: StatusService) {}
+  constructor(private readonly statusService: StatusService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo status' })
