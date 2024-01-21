@@ -9,7 +9,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class CreateConfRemessaDto {
+export class CreateRemessaFinanceiraDto {
   @IsNumber()
   @ApiProperty({ example: 1, required: true })
   codigo_banco: number;

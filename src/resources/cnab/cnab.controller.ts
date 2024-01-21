@@ -10,13 +10,14 @@ import {
 import { CnabService } from './cnab.service';
 import { CreateCnabDto } from './dto/create-cnab.dto';
 import { UpdateCnabDto } from './dto/update-cnab.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Cnab } from './entities/cnab.entity';
 
+@ApiBearerAuth()
 @ApiTags('Cnab')
 @Controller('cnab')
 export class CnabController {
-  constructor(private readonly cnabService: CnabService) {}
+  constructor(private readonly cnabService: CnabService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo cnab' })
