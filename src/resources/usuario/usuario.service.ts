@@ -34,6 +34,9 @@ export class UsuarioService {
         codigo: this.usuario.codigo,
       });
 
+      // Oculta a senha
+      this.usuario.senha = undefined;
+
       return this.usuario;
     } catch (error) {
       this.error.erro500(error.message);
@@ -44,10 +47,10 @@ export class UsuarioService {
     try {
       const usuarios: Array<Usuario> = await this.usuarioRepository.find();
 
+      // Oculta a senha
       usuarios.forEach(usuario => {
         usuario.senha = undefined;
-        usuario.nivel = undefined;
-      })
+      });
 
       return usuarios;
     } catch (error) {
@@ -59,8 +62,8 @@ export class UsuarioService {
     try {
       this.usuario = await this.usuarioRepository.findOneBy({ codigo });
       
+      // Oculta a senha
       this.usuario.senha = undefined;
-      this.usuario.nivel = undefined;
 
     } catch (error) {
       this.error.erro500(error.message);
@@ -113,6 +116,10 @@ export class UsuarioService {
         }
 
         await this.usuarioRepository.update({ codigo }, updateUsuarioDto);
+
+        // Oculta a senha
+        this.usuario.senha = undefined;
+      
       }
     } catch (error) {
       this.error.erro500(error.message);
