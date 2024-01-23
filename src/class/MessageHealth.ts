@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Authors } from "./Authors";
 
 export class MessageHealth {
 
@@ -10,6 +11,9 @@ export class MessageHealth {
 
     @ApiProperty({ example: 'http://localhost:5000/doc' })
     doc: string;
+
+    @ApiProperty({ example: [{ name: 'Autho 1', email: 'author@email.com' }] })
+    authors: Authors;
 
     constructor() { };
 }
