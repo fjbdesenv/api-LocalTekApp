@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Authors } from "./Authors";
+import { Author } from "./Authors";
 
 export class MessageHealth {
 
@@ -13,7 +13,7 @@ export class MessageHealth {
     doc: string;
 
     @ApiProperty({ example: [{ name: 'Autho 1', email: 'author@email.com' }] })
-    authors: Authors;
+    authors: Array<Author>;
 
     constructor() { };
 }

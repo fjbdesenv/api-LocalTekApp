@@ -15,7 +15,7 @@ import { Cliente } from './entities/cliente.entity';
 
 @ApiBearerAuth()
 @ApiTags('Cliente')
-@Controller('cliente')
+@Controller('clientes')
 export class ClienteController {
   constructor(private readonly clienteService: ClienteService) { }
 
