@@ -15,7 +15,7 @@ import { RemessaFinanceira } from './entities/remessaFinanceira.entity';
 
 @ApiBearerAuth()
 @ApiTags('Remessa Financeira')
-@Controller('remessa-financeira')
+@Controller('remessas-financeiras')
 export class RemessaFinanceiraController {
   constructor(private readonly remessaFinanceiraService: RemessaFinanceiraService) { }
 

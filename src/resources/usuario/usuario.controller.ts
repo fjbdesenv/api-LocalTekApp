@@ -15,7 +15,7 @@ import { Usuario } from './entities/usuario.entity';
 
 @ApiBearerAuth()
 @ApiTags('Usuário')
-@Controller('usuario')
+@Controller('usuarios')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
