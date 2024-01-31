@@ -15,7 +15,7 @@ import { Banco } from './entities/banco.entity';
 
 @ApiBearerAuth()
 @ApiTags('Banco')
-@Controller('banco')
+@Controller('bancos')
 export class BancoController {
   constructor(private readonly bancoService: BancoService) { }
 

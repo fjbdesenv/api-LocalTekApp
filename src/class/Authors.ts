@@ -8,11 +8,3 @@ export class Author {
         this.email = email;
     }
 }
-
-export class Authors {
-    authors: Array<Author> | undefined;
-
-    constructor(authors) {
-        this.authors = authors;
-    }
-}

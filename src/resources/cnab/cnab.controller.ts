@@ -15,7 +15,7 @@ import { Cnab } from './entities/cnab.entity';
 
 @ApiBearerAuth()
 @ApiTags('Cnab')
-@Controller('cnab')
+@Controller('cnabs')
 export class CnabController {
   constructor(private readonly cnabService: CnabService) { }
 
