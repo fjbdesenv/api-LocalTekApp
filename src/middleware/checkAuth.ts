@@ -26,8 +26,7 @@ export class CheckAuth implements NestMiddleware {
         const aux: Array<string> = authorization.split(' ');
         const token: Token = new Token(aux[0], aux[1]);
 
-        if (token.type != 'Bearer') throw new UnauthorizedException();
-        if (!token.token) throw new UnauthorizedException();
+        if (token.type != 'Bearer' || !token.token) throw new UnauthorizedException('Token is not a bearer token');
         if (!this.verificarToken(token)) throw new UnauthorizedException();
 
         next();
