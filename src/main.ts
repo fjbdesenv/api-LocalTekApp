@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { configApp } from './config/configApp';
 
@@ -26,12 +26,18 @@ async function start() {
   const document = SwaggerModule.createDocument(app, configApp);
   SwaggerModule.setup('doc', app, document);
 
+  app.enableCors({
+    origin: '*',
+    methods: ['POST', 'PUT', 'GET', 'PATCH', 'OPTIONS'],
+    allowedHeaders:[ 'Authorization', 'Content-Type', 'Accept' ]
+    
+  });
+
   app.use(
-    helmet({
-      crossOriginEmbedderPolicy: true,
-      crossOriginResourcePolicy: { policy: 'same-site' },
-    }),
+    helmet(),
   );
+
+
 
   await app.listen(process.env.APP_PORT);
 }
