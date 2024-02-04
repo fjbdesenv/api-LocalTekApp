@@ -28,9 +28,9 @@ async function start() {
 
   app.enableCors({
     origin: '*',
-    methods: ['POST', 'PUT', 'GET', 'PATCH', 'OPTIONS'],
-    allowedHeaders:[ 'Authorization', 'Content-Type', 'Accept' ]
-    
+    methods: ['POST', 'PUT', 'GET', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Authorization', 'Content-Type', 'Accept']
+
   });
 
   app.use(
