@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DefaultEntity } from 'src/class/DefaultEntity';
+import { Cliente } from 'src/resources/cliente/entities/cliente.entity';
 import { Status } from 'src/resources/status/entities/status.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
@@ -24,4 +25,11 @@ export class Atendimento extends DefaultEntity {
     foreignKeyConstraintName: 'fk_atendimento_status',
   })
   status: Status;
+
+  @ManyToOne((type) => Cliente)
+  @JoinColumn({
+    name: 'codigo_cliente',
+    foreignKeyConstraintName: 'fk_atendimento_cliente',
+  })
+  cliente: Cliente;
 }
