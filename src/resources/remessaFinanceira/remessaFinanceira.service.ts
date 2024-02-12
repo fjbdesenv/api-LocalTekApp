@@ -5,6 +5,8 @@ import { RemessaFinanceira } from './entities/remessaFinanceira.entity';
 import { ErroSystem } from 'src/class/Erro';
 import { DeleteResult, Repository } from 'typeorm';
 
+const relations = ['status', 'banco', 'atendimento', 'cnab'];
+
 @Injectable()
 export class RemessaFinanceiraService {
   private remessaFinanceira: RemessaFinanceira;
@@ -30,7 +32,7 @@ export class RemessaFinanceiraService {
 
   async findAll(): Promise<Array<RemessaFinanceira>> {
     try {
-      return await this.remessaFinanceiraRepository.find();
+      return await this.remessaFinanceiraRepository.find({ relations });
     } catch (error) {
       this.error.erro500(error.message);
     }
