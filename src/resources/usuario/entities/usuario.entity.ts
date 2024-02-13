@@ -18,7 +18,7 @@ export class Usuario extends DefaultEntity {
   email: string;
 
   @Column({ length: 100 })
-  @ApiProperty({ example: 'senhaAlterar', required: true })
+  @ApiProperty({ example: 'senha', required: true })
   senha: string;
 
   @Column({

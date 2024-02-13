@@ -16,7 +16,7 @@ export class CreateUsuarioDto {
   readonly email: string;
 
   @IsString()
-  @ApiProperty({ example: 'senhaAlterar', required: true })
+  @ApiProperty({ example: 'senha', required: true })
   senha: string;
 
   @IsNumber()
