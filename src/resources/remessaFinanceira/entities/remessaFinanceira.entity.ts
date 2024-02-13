@@ -25,7 +25,7 @@ export class RemessaFinanceira extends DefaultEntity {
   codigo_cnab: number;
 
   @Column({ comment: '1 - pagamento | 2 - cobrança' })
-  @ApiProperty({ example: 1, required: true })
+  @ApiProperty({ example: 1, required: true, description: '1 - pagamento | 2 - cobrança' })
   tipo_remessa: number;
 
   @Column()
