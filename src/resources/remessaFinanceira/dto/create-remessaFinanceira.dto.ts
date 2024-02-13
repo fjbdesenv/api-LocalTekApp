@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsNumber,
-  IsNumberString,
   IsString,
   Max,
   MaxLength,
@@ -78,19 +77,17 @@ export class CreateRemessaFinanceiraDto {
   @ApiProperty({ example: 'titular da conta', required: true })
   titular: string;
 
-  @IsNumberString()
-  @MaxLength(14)
-  @ApiProperty({ example: '12345678909876', required: true })
-  titular_cnpj_cpf: string;
+  @IsNumber()
+  @ApiProperty({ example: 63271907000105, required: true })
+  titular_cnpj_cpf: number;
 
   @IsString()
   @ApiProperty({ example: 'sacador da conta' })
   sacador_avalista: string;
 
-  @IsNumberString()
-  @MaxLength(14)
-  @ApiProperty({ example: '98765432123456', required: true })
-  sacador_avalista_cnpj_cpf: string;
+  @IsNumber()
+  @ApiProperty({ example: 34646100000101, required: true })
+  sacador_avalista_cnpj_cpf: number;
 
   @IsNumber()
   @ApiProperty({ example: 0.5, default: 0, required: true })

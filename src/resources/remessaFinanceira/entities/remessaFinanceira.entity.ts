@@ -68,17 +68,17 @@ export class RemessaFinanceira extends DefaultEntity {
   @ApiProperty({ example: 'titular da conta', required: true })
   titular: string;
 
-  @Column({ length: 14 })
-  @ApiProperty({ example: '12345678909876', maxLength: 14, required: true })
-  titular_cnpj_cpf: string;
+  @Column({ type: 'bigint' })
+  @ApiProperty({ example: 63271907000105, maximum: 14, required: true })
+  titular_cnpj_cpf: number;
 
   @Column({ length: 100 })
   @ApiProperty({ example: 'sacador da conta' })
   sacador_avalista: string;
 
-  @Column({ length: 14 })
-  @ApiProperty({ example: '98765432123456', maxLength: 14, required: true })
-  sacador_avalista_cnpj_cpf: string;
+  @Column({ type: 'bigint' })
+  @ApiProperty({ example: 34646100000101, maximum: 14 })
+  sacador_avalista_cnpj_cpf: number;
 
   @Column({ type: 'float', precision: 2 })
   @ApiProperty({ example: 0.5, default: 0, required: true })
