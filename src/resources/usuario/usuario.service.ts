@@ -7,6 +7,8 @@ import { Criptografia } from 'src/class/Criptografia';
 import { ErroSystem } from 'src/class/Erro';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 
+const relations = ['status'];
+
 @Injectable()
 export class UsuarioService {
   private usuario: Usuario;
@@ -45,7 +47,7 @@ export class UsuarioService {
 
   async findAll(): Promise<Array<Usuario>> {
     try {
-      const usuarios: Array<Usuario> = await this.usuarioRepository.find();
+      const usuarios: Array<Usuario> = await this.usuarioRepository.find({ relations });
 
       // Oculta a senha
       usuarios.forEach(usuario => {
@@ -61,7 +63,7 @@ export class UsuarioService {
   async findByCodigo(codigo: number): Promise<Usuario> {
     try {
       this.usuario = await this.usuarioRepository.findOneBy({ codigo });
-      
+
       // Oculta a senha
       this.usuario.senha = undefined;
 
@@ -119,7 +121,7 @@ export class UsuarioService {
 
         // Oculta a senha
         this.usuario.senha = undefined;
-      
+
       }
     } catch (error) {
       this.error.erro500(error.message);

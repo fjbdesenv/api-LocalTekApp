@@ -5,6 +5,8 @@ import { Banco } from './entities/banco.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { ErroSystem } from 'src/class/Erro';
 
+const relations = ['status'];
+
 @Injectable()
 export class BancoService {
   private banco: Banco;
@@ -27,7 +29,7 @@ export class BancoService {
 
   async findAll(): Promise<Array<Banco>> {
     try {
-      return await this.bancoRepository.find();
+      return await this.bancoRepository.find({ relations });
     } catch (error) {
       this.error.erro500(error.message);
     }

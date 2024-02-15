@@ -5,6 +5,8 @@ import { Cliente } from './entities/cliente.entity';
 import { ErroSystem } from 'src/class/Erro';
 import { DeleteResult, Repository } from 'typeorm';
 
+const relations = ['status'];
+
 @Injectable()
 export class ClienteService {
   private cliente: Cliente;
@@ -28,7 +30,7 @@ export class ClienteService {
 
   async findAll(): Promise<Array<Cliente>> {
     try {
-      return await this.clienteRepository.find();
+      return await this.clienteRepository.find({ relations });
     } catch (error) {
       this.error.erro500(error.message);
     }
