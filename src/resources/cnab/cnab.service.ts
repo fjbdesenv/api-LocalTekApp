@@ -5,6 +5,8 @@ import { Cnab } from './entities/cnab.entity';
 import { ErroSystem } from 'src/class/Erro';
 import { DeleteResult, Repository } from 'typeorm';
 
+const relations = ['status'];
+
 @Injectable()
 export class CnabService {
   private cnab: Cnab;
@@ -27,7 +29,7 @@ export class CnabService {
 
   async findAll(): Promise<Array<Cnab>> {
     try {
-      return await this.cnabRepository.find();
+      return await this.cnabRepository.find({ relations });
     } catch (error) {
       this.error.erro500(error.message);
     }

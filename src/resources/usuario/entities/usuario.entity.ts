@@ -18,14 +18,15 @@ export class Usuario extends DefaultEntity {
   email: string;
 
   @Column({ length: 100 })
-  @ApiProperty({ example: 'senhaAlterar', required: true })
+  @ApiProperty({ example: 'senha', required: true })
   senha: string;
 
-  @Column({
-    type: 'tinyint',
-    comment: '1 - Cliente | 2 - Usuário | 3 - Administrador',
-  })
-  @ApiProperty({ example: 1, required: true })
+  @Column({ length: 200, default: "", comment: "Modulos: Administrador | Especificidade | Remesssa" })
+  @ApiProperty({ example: "Administrador|Especificidade|Remessa" })
+  modulos: string;
+
+  @Column({ type: 'tinyint', default: 2 })
+  @ApiProperty({ example: 2 })
   nivel: number;
 
   /* Chaves estrangeiras */

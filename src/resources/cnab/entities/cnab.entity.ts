@@ -23,5 +23,6 @@ export class Cnab extends DefaultEntity {
     name: 'codigo_status',
     foreignKeyConstraintName: 'fk_cnab_status',
   })
+  
   status: Status;
 }
