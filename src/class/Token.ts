@@ -1,5 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 type typeToken = string | undefined;
 
 export class Token {
@@ -9,8 +7,5 @@ export class Token {
   }
 
   type: typeToken;
-
-  @ApiProperty({ example: 'token' })
   token: typeToken;
-
 }
