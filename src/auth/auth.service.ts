@@ -13,17 +13,25 @@ export class AuthService {
     const usuario = await this.usuarioService.findAuth(auth);
 
     if (usuario) {
-      return { token: this.gerarToken(usuario) };
+      return {
+        token: this.gerarToken(usuario),
+        usuario: {
+          codigo: usuario.codigo,
+          email: usuario.email,
+          nome: usuario.nome,
+          modulos: usuario.modulos,
+          nivel: usuario.nivel
+        }
+      };
     } else {
       throw new UnauthorizedException();
     }
   }
 
   gerarToken(payload: Usuario) {
-
-    const { codigo, email, nivel } = payload;
+    const { codigo, email, modulos, nivel } = payload;
     return this.jwtService.sign(
-      { codigo, email, nivel },
+      { codigo, email, modulos, nivel },
       { secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRES || "30d" }
     );
   }
