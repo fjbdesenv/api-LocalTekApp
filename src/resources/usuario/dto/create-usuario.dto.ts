@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNumber, IsString } from 'class-validator';
-import { nivel } from 'src/enum/niveis';
 
 export class CreateUsuarioDto {
   @IsNumber()
