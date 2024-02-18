@@ -22,7 +22,7 @@ export class Usuario extends DefaultEntity {
   senha: string;
 
   @Column({ length: 200, default: "", comment: "Modulos: Administrador | Especificidade | Remesssa" })
-  @ApiProperty({ example: "Administrador|Especificidade|Remesssa" })
+  @ApiProperty({ example: "Administrador|Especificidade|Remessa" })
   modulos: string;
 
   @Column({ type: 'tinyint', default: 2 })

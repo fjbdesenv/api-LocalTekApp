@@ -17,7 +17,7 @@ export class Auth {
             codigo: 1,
             email: "adm@email.com",
             nome: "Admin",
-            modulos: "Administrador|Especificidade|Remesssa", /*Pode mudar, verificar */
+            modulos: "Administrador|Especificidade|Remessa", /*Pode mudar, verificar */
             nivel: 2
         }
     })

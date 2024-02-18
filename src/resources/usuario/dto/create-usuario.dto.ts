@@ -19,7 +19,7 @@ export class CreateUsuarioDto {
   senha: string;
 
   @IsString()
-  @ApiProperty({ example: "Administrador|Especificidade|Remesssa", default: "" })
+  @ApiProperty({ example: "Administrador|Especificidade|Remessa", default: "" })
   modulos: string;
 
   @IsNumber()
