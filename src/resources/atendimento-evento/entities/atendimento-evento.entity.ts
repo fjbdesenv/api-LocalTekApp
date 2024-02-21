@@ -18,7 +18,8 @@ export class AtendimentoEvento extends DefaultEntity {
     data: string;
 
     /* Chaves estrangeiras */
-    @ManyToOne((type) => Atendimento)
+    /* Os eventos são deletados com o usuário */
+    @ManyToOne((type) => Atendimento, atendimento => atendimento.codigo, { onDelete: 'CASCADE' })
     @JoinColumn({
         name: 'codigo_atendimento',
         foreignKeyConstraintName: 'fk_atendimentoEvento_Atendimento',
