@@ -6,6 +6,10 @@ export class CreateAtendimentoEventoDto {
     @ApiProperty({ example: 1234 })
     codigo_atendimento: number;
 
+    @IsNumber()
+    @ApiProperty({ example: 1, required: true })
+    readonly codigo_status: number;
+
     @IsString()
     @ApiProperty({ example: 'Entrega', maxLength: 100, required: true })
     readonly descricao: string;
