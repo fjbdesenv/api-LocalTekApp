@@ -10,8 +10,8 @@ export class AtendimentoArquivo extends DefaultEntity {
     codigo_atendimento: number;
 
     @Column({ length: 100 })
-    @ApiProperty({ example: 'Entrega', required: true })
-    nome: string;
+    @ApiProperty({ example: 'Arquivo.txt', required: true })
+    descricao: string;
 
     @Column({ length: 10 })
     @ApiProperty({ example: 'txt', required: true })
