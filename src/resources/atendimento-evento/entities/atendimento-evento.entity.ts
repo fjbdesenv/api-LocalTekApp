@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { DefaultEntity } from "src/class/DefaultEntity";
 import { Atendimento } from "src/resources/atendimento/entities/atendimento.entity";
+import { Status } from "src/resources/status/entities/status.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
@@ -9,15 +10,27 @@ export class AtendimentoEvento extends DefaultEntity {
     @ApiProperty({ example: 1234, required: true })
     codigo_atendimento: number;
 
+    @Column()
+    @ApiProperty({ example: 1, default: 1, required: true })
+    codigo_status: number;
+
     @Column({ length: 100 })
     @ApiProperty({ example: 'Entrega', required: true })
     descricao: string;
 
-    @Column()
-    @ApiProperty({ example: '01/01/2024', required: true })
+    @Column({ length: 10 })
+    @ApiProperty({ example: '01/01/2024', maxLength: 10, required: true })
     data: string;
 
     /* Chaves estrangeiras */
+
+    @ManyToOne((type) => Status)
+    @JoinColumn({
+        name: 'codigo_status',
+        foreignKeyConstraintName: 'fk_atendimentoEvento_status',
+    })
+    status: Status;
+
     /* Os eventos são deletados com o usuário */
     @ManyToOne((type) => Atendimento, atendimento => atendimento.codigo, { onDelete: 'CASCADE' })
     @JoinColumn({
@@ -25,4 +38,5 @@ export class AtendimentoEvento extends DefaultEntity {
         foreignKeyConstraintName: 'fk_atendimentoEvento_Atendimento',
     })
     atendimento: Atendimento;
+
 }

@@ -5,6 +5,8 @@ import { AtendimentoEvento } from './entities/atendimento-evento.entity';
 import { ErroSystem } from 'src/class/Erro';
 import { DeleteResult, Repository } from 'typeorm';
 
+const relations = ['status'];
+
 @Injectable()
 export class AtendimentoEventoService {
   private atendimentoEvento: AtendimentoEvento;
@@ -27,7 +29,7 @@ export class AtendimentoEventoService {
 
   async findAll(codigoAtendimento: number): Promise<Array<AtendimentoEvento>> {
     try {
-      return await this.AtendimentoEventoRepository.find({ where: { codigo_atendimento: codigoAtendimento } });
+      return await this.AtendimentoEventoRepository.find({ relations, where: { codigo_atendimento: codigoAtendimento } });
     } catch (error) {
       this.error.erro500(error.message);
     }
