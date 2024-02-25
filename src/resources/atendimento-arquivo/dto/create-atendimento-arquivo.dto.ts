@@ -8,7 +8,7 @@ export class CreateAtendimentoArquivoDto {
 
     @IsString()
     @ApiProperty({ example: 'arquivo.txt', maxLength: 100, required: true })
-    readonly nome: string;
+    readonly descricao: string;
 
     @IsString()
     @ApiProperty({ example: 'txt', maxLength: 10, required: true })
