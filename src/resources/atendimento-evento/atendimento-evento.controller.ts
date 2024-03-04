@@ -7,7 +7,7 @@ import { AtendimentoEvento } from './entities/atendimento-evento.entity';
 
 @ApiBearerAuth()
 @ApiTags('Atendimento Evento')
-@Controller('atendimento/:codigoAtendimento/eventos')
+@Controller('atendimentos/:codigoAtendimento/eventos')
 export class AtendimentoEventoController {
   constructor(private readonly AtendimentoEventoService: AtendimentoEventoService) { }
 

@@ -1,9 +1,12 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateAtendimentoDto } from './dto/create-atendimento.dto';
 import { UpdateAtendimentoDto } from './dto/update-atendimento.dto';
 import { Atendimento } from './entities/atendimento.entity';
-import { DeleteResult, Repository } from 'typeorm';
 import { ErroSystem } from 'src/class/Erro';
+import { configMulter } from 'src/config';
+import { rmSync } from 'fs';
+
 
 const relations = ['status', 'cliente'];
 
@@ -83,13 +86,18 @@ export class AtendimentoService {
 
   async remove(codigo: number): Promise<string> {
     try {
-      const result: DeleteResult = await this.atendimentoRepository.delete({
-        codigo,
-      });
+      const result: DeleteResult = await this.atendimentoRepository.delete({codigo});
 
-      result.affected > 0
-        ? (this.atendimento = new Atendimento())
-        : (this.atendimento = undefined);
+      if (result.affected > 0) {
+        /* Apaga a pasta de arquivos do atendimento */
+        const { dynamicPath } = configMulter;
+        const pathAux = dynamicPath(codigo);
+        if (pathAux) rmSync(pathAux, { recursive: true, force: true });
+
+        this.atendimento = new Atendimento();
+      } else {
+        this.atendimento = undefined;
+      }
     } catch (error) {
       this.error.erro500(error.message);
     }
