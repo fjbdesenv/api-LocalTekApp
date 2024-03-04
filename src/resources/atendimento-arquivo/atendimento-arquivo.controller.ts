@@ -4,7 +4,6 @@ import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags
 import { AtendimentoArquivo } from './entities/atendimento-arquivo.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from 'src/config/configMulter';
-import { CreateAtendimentoArquivoDto } from './dto/create-atendimento-arquivo.dto';
 
 @ApiBearerAuth()
 @ApiTags('Atendimento Arquivo')
@@ -31,13 +30,13 @@ export class AtendimentoArquivoController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
 
   async uploadArquivo(
-    @Param('codigoAtendimento') codigoAtendimento: string,
+    @Param('codigoAtendimento') codigoAtendimento: number,
     @UploadedFile() arquivo: Express.Multer.File,
     @Res() response
   ) {
 
     if (arquivo) {
-      const atendimentoArquivo = new AtendimentoArquivo(+codigoAtendimento, arquivo);
+      const atendimentoArquivo = new AtendimentoArquivo(codigoAtendimento, arquivo);
       const retorno = await this.atendimentoArquivoService.create(atendimentoArquivo);
 
       if (retorno) {
@@ -63,8 +62,8 @@ export class AtendimentoArquivoController {
   @ApiOperation({ summary: 'Consultar todos os arquivos de um atendimento' })
   @ApiResponse({ status: 200, description: 'OK', type: [AtendimentoArquivo] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  findAll(@Param('codigoAtendimento') codigoAtendimento: string) {
-    return this.atendimentoArquivoService.findAll(+codigoAtendimento);
+  findAll(@Param('codigoAtendimento') codigoAtendimento: number) {
+    return this.atendimentoArquivoService.findAll(codigoAtendimento);
   }
 
   @Get(':codigo')
@@ -73,10 +72,10 @@ export class AtendimentoArquivoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
   findOne(
-    @Param('codigoAtendimento') codigoAtendimento: string,
-    @Param('codigo') codigo: string
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number
   ) {
-    return this.atendimentoArquivoService.findByCodigo(+codigoAtendimento, +codigo);
+    return this.atendimentoArquivoService.findByCodigo(codigoAtendimento, codigo);
   }
 
   @Patch(':codigo')
@@ -98,14 +97,14 @@ export class AtendimentoArquivoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async updateArquivo(
-    @Param('codigoAtendimento') codigoAtendimento: string,
-    @Param('codigo') codigo: string,
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number,
     @UploadedFile() arquivo: Express.Multer.File,
     @Res() response
   ) {
     if (arquivo) {
-      const atendimentoArquivo = new AtendimentoArquivo(+codigoAtendimento, arquivo);
-      atendimentoArquivo.codigo = +codigo;
+      const atendimentoArquivo = new AtendimentoArquivo(codigoAtendimento, arquivo);
+      atendimentoArquivo.codigo = codigo;
 
       const retorno = await this.atendimentoArquivoService.update(atendimentoArquivo);
 
@@ -133,9 +132,9 @@ export class AtendimentoArquivoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   remove(
-    @Param('codigoAtendimento') codigoAtendimento: string,
-    @Param('codigo') codigo: string
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number
   ) {
-    return this.atendimentoArquivoService.remove(+codigoAtendimento, +codigo);
+    return this.atendimentoArquivoService.remove(codigoAtendimento, codigo);
   }
 }

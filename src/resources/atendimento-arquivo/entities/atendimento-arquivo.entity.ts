@@ -26,7 +26,6 @@ export class AtendimentoArquivo extends DefaultEntity {
     }
 
     @Column()
-    @IsNumber()
     @ApiProperty({ example: 1234, required: true })
     codigo_atendimento: number;
 

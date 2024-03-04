@@ -38,5 +38,4 @@ export class AtendimentoEvento extends DefaultEntity {
         foreignKeyConstraintName: 'fk_atendimentoEvento_Atendimento',
     })
     atendimento: Atendimento;
-
 }
