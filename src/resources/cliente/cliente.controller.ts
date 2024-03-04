@@ -40,8 +40,8 @@ export class ClienteController {
   @ApiResponse({ status: 200, description: 'OK', type: Cliente })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
-  findOne(@Param('codigo') codigo: string) {
-    return this.clienteService.findByCodigo(+codigo);
+  findOne(@Param('codigo') codigo: number) {
+    return this.clienteService.findByCodigo(codigo);
   }
 
   @Patch(':codigo')
@@ -50,10 +50,10 @@ export class ClienteController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   update(
-    @Param('codigo') codigo: string,
+    @Param('codigo') codigo: number,
     @Body() updateClienteDto: UpdateClienteDto,
   ) {
-    return this.clienteService.update(+codigo, updateClienteDto);
+    return this.clienteService.update(codigo, updateClienteDto);
   }
 
   @Delete(':codigo')
@@ -61,7 +61,7 @@ export class ClienteController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  remove(@Param('codigo') codigo: string) {
-    return this.clienteService.remove(+codigo);
+  remove(@Param('codigo') codigo: number) {
+    return this.clienteService.remove(codigo);
   }
 }

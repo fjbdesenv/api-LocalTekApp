@@ -4,7 +4,6 @@ import {
   IsNumber,
   IsString,
   Max,
-  MaxLength,
   Min,
 } from 'class-validator';
 

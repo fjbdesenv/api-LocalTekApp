@@ -48,8 +48,8 @@ export class StatusController {
   @ApiResponse({ status: 200, description: 'OK', type: Status })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
-  findOne(@Param('codigo') codigo: string) {
-    return this.statusService.findByCodigo(+codigo);
+  findOne(@Param('codigo') codigo: number) {
+    return this.statusService.findByCodigo(codigo);
   }
 
   @Patch(':codigo')
@@ -58,10 +58,10 @@ export class StatusController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   update(
-    @Param('codigo') codigo: string,
+    @Param('codigo') codigo: number,
     @Body() updateStatusDto: UpdateStatusDto,
   ) {
-    return this.statusService.update(+codigo, updateStatusDto);
+    return this.statusService.update(codigo, updateStatusDto);
   }
 
   @Delete(':codigo')
@@ -69,7 +69,7 @@ export class StatusController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  remove(@Param('codigo') codigo: string) {
-    return this.statusService.remove(+codigo);
+  remove(@Param('codigo') codigo: number) {
+    return this.statusService.remove(codigo);
   }
 }

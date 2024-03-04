@@ -7,7 +7,7 @@ import { AtendimentoEvento } from './entities/atendimento-evento.entity';
 
 @ApiBearerAuth()
 @ApiTags('Atendimento Evento')
-@Controller('atendimento/:codigoAtendimento/eventos')
+@Controller('atendimentos/:codigoAtendimento/eventos')
 export class AtendimentoEventoController {
   constructor(private readonly AtendimentoEventoService: AtendimentoEventoService) { }
 
@@ -17,10 +17,10 @@ export class AtendimentoEventoController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(
     @Body() createAtendimentoEventoDto: CreateAtendimentoEventoDto,
-    @Param('codigoAtendimento') codigoAtendimento: string
+    @Param('codigoAtendimento') codigoAtendimento: number
   ) {
     /* Adicionando o codigo de atendimento do parametro */
-    createAtendimentoEventoDto.codigo_atendimento = +codigoAtendimento;
+    createAtendimentoEventoDto.codigo_atendimento = codigoAtendimento;
     return this.AtendimentoEventoService.create(createAtendimentoEventoDto);
   }
 
@@ -28,8 +28,8 @@ export class AtendimentoEventoController {
   @ApiOperation({ summary: 'Consultar todos os eventos de um atendimento' })
   @ApiResponse({ status: 200, description: 'OK', type: [AtendimentoEvento] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  findAll(@Param('codigoAtendimento') codigoAtendimento: string) {
-    return this.AtendimentoEventoService.findAll(+codigoAtendimento);
+  findAll(@Param('codigoAtendimento') codigoAtendimento: number) {
+    return this.AtendimentoEventoService.findAll(codigoAtendimento);
   }
 
   @Get(':codigo')
@@ -38,10 +38,10 @@ export class AtendimentoEventoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
   findOne(
-    @Param('codigoAtendimento') codigoAtendimento: string,
-    @Param('codigo') codigo: string
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number
   ) {
-    return this.AtendimentoEventoService.findByCodigo(+codigoAtendimento, +codigo);
+    return this.AtendimentoEventoService.findByCodigo(codigoAtendimento, codigo);
   }
 
   @Patch(':codigo')
@@ -50,13 +50,13 @@ export class AtendimentoEventoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   update(
-    @Param('codigoAtendimento') codigoAtendimento: string,
-    @Param('codigo') codigo: string,
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number,
     @Body() updateAtendimentoEventoDto: UpdateAtendimentoEventoDto,
   ) {
     /* Adicionando o codigo de atendimento do parametro */
-    updateAtendimentoEventoDto.codigo_atendimento = +codigoAtendimento;
-    return this.AtendimentoEventoService.update(+codigo, updateAtendimentoEventoDto);
+    updateAtendimentoEventoDto.codigo_atendimento = codigoAtendimento;
+    return this.AtendimentoEventoService.update(codigo, updateAtendimentoEventoDto);
   }
 
   @Delete(':codigo')
@@ -65,9 +65,9 @@ export class AtendimentoEventoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   remove(
-    @Param('codigoAtendimento') codigoAtendimento: string,
-    @Param('codigo') codigo: string
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number
   ) {
-    return this.AtendimentoEventoService.remove(+codigoAtendimento, +codigo);
+    return this.AtendimentoEventoService.remove(codigoAtendimento, codigo);
   }
 }
