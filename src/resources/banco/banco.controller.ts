@@ -40,8 +40,8 @@ export class BancoController {
   @ApiResponse({ status: 200, description: 'OK', type: Banco })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
-  findOne(@Param('codigo') codigo: string) {
-    return this.bancoService.findByCodigo(+codigo);
+  findOne(@Param('codigo') codigo: number) {
+    return this.bancoService.findByCodigo(codigo);
   }
 
   @Patch(':codigo')
@@ -50,10 +50,10 @@ export class BancoController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   update(
-    @Param('codigo') codigo: string,
+    @Param('codigo') codigo: number,
     @Body() updateBancoDto: UpdateBancoDto,
   ) {
-    return this.bancoService.update(+codigo, updateBancoDto);
+    return this.bancoService.update(codigo, updateBancoDto);
   }
 
   @Delete(':codigo')
@@ -61,7 +61,7 @@ export class BancoController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  remove(@Param('codigo') codigo: string) {
-    return this.bancoService.remove(+codigo);
+  remove(@Param('codigo') codigo: number) {
+    return this.bancoService.remove(codigo);
   }
 }

@@ -40,8 +40,8 @@ export class RemessaFinanceiraController {
   @ApiResponse({ status: 200, description: 'OK', type: RemessaFinanceira })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
-  findOne(@Param('codigo') codigo: string) {
-    return this.remessaFinanceiraService.findByCodigo(+codigo);
+  findOne(@Param('codigo') codigo: number) {
+    return this.remessaFinanceiraService.findByCodigo(codigo);
   }
 
   @Patch(':codigo')
@@ -50,10 +50,10 @@ export class RemessaFinanceiraController {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   update(
-    @Param('codigo') codigo: string,
+    @Param('codigo') codigo: number,
     @Body() updateRemessaFinanceiraDto: UpdateRemessaFinanceiraDto,
   ) {
-    return this.remessaFinanceiraService.update(+codigo, updateRemessaFinanceiraDto);
+    return this.remessaFinanceiraService.update(codigo, updateRemessaFinanceiraDto);
   }
 
   @Delete(':codigo')
@@ -61,7 +61,7 @@ export class RemessaFinanceiraController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  remove(@Param('codigo') codigo: string) {
-    return this.remessaFinanceiraService.remove(+codigo);
+  remove(@Param('codigo') codigo: number) {
+    return this.remessaFinanceiraService.remove(codigo);
   }
 }

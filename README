@@ -1,0 +1,9 @@
+Necessário instalar
+npm i class-validator
+npm i class-transformer
+npm i @nestjs/swagger
+npm i @nestjs/mapped-types
+
+Necessário instalar desenvolvimento
+npm i -D @types/multer
+

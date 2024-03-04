@@ -1,33 +1,52 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateAtendimentoArquivoDto } from './dto/create-atendimento-arquivo.dto';
-import { UpdateAtendimentoArquivoDto } from './dto/update-atendimento-arquivo.dto';
 import { AtendimentoArquivo } from './entities/atendimento-arquivo.entity';
 import { ErroSystem } from 'src/class/Erro';
 import { DeleteResult, Repository } from 'typeorm';
+import { Atendimento } from '../atendimento/entities/atendimento.entity';
+import { rmSync } from 'fs';
 
 @Injectable()
 export class AtendimentoArquivoService {
   private atendimentoArquivo: AtendimentoArquivo;
+  private atendimento: Atendimento;
   private error: ErroSystem;
 
   constructor(
     @Inject('ATENDIMENTO_ARQUIVO_REPOSITORY') private atendimentoArquivoRepository: Repository<AtendimentoArquivo>,
+    @Inject('ATENDIMENTO_REPOSITORY') private atendimentoRepository: Repository<Atendimento>,
   ) {
     this.atendimentoArquivo = undefined;
     this.error = new ErroSystem();
   }
 
-  async create(createAtendimentoArquivoDto: CreateAtendimentoArquivoDto): Promise<AtendimentoArquivo> {
+  async create(arquivoDto: AtendimentoArquivo): Promise<AtendimentoArquivo> {
     try {
-      return await this.atendimentoArquivoRepository.save(createAtendimentoArquivoDto);
+      const { codigo_atendimento } = arquivoDto;
+      this.atendimento = await this.atendimentoRepository.findOneBy({ codigo: codigo_atendimento });
+
+      /* verifica se atendimento existe */
+      if (this.atendimento) {
+        arquivoDto.setArquivo();
+        return await this.atendimentoArquivoRepository.save(arquivoDto);
+      }
+
+      return this.atendimentoArquivo;
     } catch (error) {
+      if (error.statusCode !== 500) return;
       this.error.erro500(error.message);
     }
   }
 
   async findAll(codigoAtendimento: number): Promise<Array<AtendimentoArquivo>> {
     try {
-      return await this.atendimentoArquivoRepository.find({ where: { codigo_atendimento: codigoAtendimento } });
+      const retorno = await this.atendimentoArquivoRepository.find({ where: { codigo_atendimento: codigoAtendimento } });
+
+      retorno.map(atenArq => {
+        atenArq.url = undefined;
+        return atenArq;
+      });
+
+      return retorno;
     } catch (error) {
       this.error.erro500(error.message);
     }
@@ -36,6 +55,7 @@ export class AtendimentoArquivoService {
   async findByCodigo(codigoAtendimento: number, codigo: number): Promise<AtendimentoArquivo> {
     try {
       this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOneBy({ codigo, codigo_atendimento: codigoAtendimento });
+      if (this.atendimentoArquivo) this.atendimentoArquivo.url = undefined;
     } catch (error) {
       this.error.erro500(error.message);
     }
@@ -47,17 +67,38 @@ export class AtendimentoArquivoService {
     }
   }
 
-  async update(codigo: number, updateAtendimentoArquivoDto: UpdateAtendimentoArquivoDto): Promise<AtendimentoArquivo> {
+  async update(arquivoDto: AtendimentoArquivo): Promise<AtendimentoArquivo> {
     try {
-      const { codigo_atendimento } = updateAtendimentoArquivoDto;
-      this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOneBy({ codigo, codigo_atendimento });
+      const { codigo, codigo_atendimento } = arquivoDto;
+      const where = { codigo, codigo_atendimento };
+      const atendimentoArquivoAntigo = await this.atendimentoArquivoRepository.findOneBy(where);
 
-      if (this.atendimentoArquivo) {
-        this.atendimentoArquivo = Object.assign(this.atendimentoArquivo, updateAtendimentoArquivoDto);
+      if (atendimentoArquivoAntigo) {
+        const urlAntiga = atendimentoArquivoAntigo.url;
 
-        await this.atendimentoArquivoRepository.update({ codigo }, updateAtendimentoArquivoDto);
+        /* Adiciona dados do arquivo */
+        arquivoDto.setArquivo();
+        arquivoDto = Object.assign(atendimentoArquivoAntigo, arquivoDto);
+
+        const retorno = await this.atendimentoArquivoRepository.update({ codigo }, arquivoDto);
+
+        if (retorno.affected > 0) {
+          /* Apaga arquivo antigo */
+          rmSync(urlAntiga);
+
+          this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOneBy(where);
+          this.atendimentoArquivo.url = undefined;
+        }
+      } else {
+        /* Apaga arquivo que seria salvo */
+        rmSync(arquivoDto.arquivo.path);
+        this.atendimentoArquivo = undefined;
       }
+
+      return this.atendimentoArquivo;
+
     } catch (error) {
+      if (error.statusCode !== 500) return;
       this.error.erro500(error.message);
     }
 
@@ -70,9 +111,14 @@ export class AtendimentoArquivoService {
 
   async remove(codigoAtendimento: number, codigo: number): Promise<string> {
     try {
-      const result: DeleteResult = await this.atendimentoArquivoRepository.delete({ codigo, codigo_atendimento: codigoAtendimento });
+      this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOne({ where: { codigo, codigo_atendimento: codigoAtendimento } });
 
-      result.affected > 0 ? (this.atendimentoArquivo = new AtendimentoArquivo()) : (this.atendimentoArquivo = undefined);
+      if (this.atendimentoArquivo) {
+        const retono: DeleteResult = await this.atendimentoArquivoRepository.delete({ codigo, codigo_atendimento: codigoAtendimento });
+        if (retono.affected > 0) rmSync(this.atendimentoArquivo.url); /* Apaga arquivo antigo */
+      } else {
+        this.atendimentoArquivo = undefined;
+      }
     } catch (error) {
       this.error.erro500(error.message);
     }

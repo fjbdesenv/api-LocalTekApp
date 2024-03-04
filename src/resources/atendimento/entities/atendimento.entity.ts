@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { DefaultEntity } from 'src/class/DefaultEntity';
 import { Cliente } from 'src/resources/cliente/entities/cliente.entity';
 import { Status } from 'src/resources/status/entities/status.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Atendimento extends DefaultEntity {
