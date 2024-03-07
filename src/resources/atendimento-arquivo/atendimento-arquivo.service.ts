@@ -4,6 +4,7 @@ import { ErroSystem } from 'src/class/Erro';
 import { DeleteResult, Repository } from 'typeorm';
 import { Atendimento } from '../atendimento/entities/atendimento.entity';
 import { rmSync } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class AtendimentoArquivoService {
@@ -64,6 +65,20 @@ export class AtendimentoArquivoService {
       throw new NotFoundException();
     } else {
       return this.atendimentoArquivo;
+    }
+  }
+
+  async findPathFile(codigoAtendimento: number, codigo: number): Promise<string | undefined> {
+    try {
+      this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOneBy({ codigo, codigo_atendimento: codigoAtendimento });
+    } catch (error) {
+      this.error.erro500(error.message);
+    }
+
+    if (!this.atendimentoArquivo) {
+      throw new NotFoundException();
+    } else {
+      return join(process.cwd(), this.atendimentoArquivo.url);
     }
   }
 
