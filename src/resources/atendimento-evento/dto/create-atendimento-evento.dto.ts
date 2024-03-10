@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString } from "class-validator";
+import { IsDateString, IsNumber, IsString } from "class-validator";
 
 export class CreateAtendimentoEventoDto {
     @IsNumber()
@@ -11,10 +11,10 @@ export class CreateAtendimentoEventoDto {
     readonly codigo_status: number;
 
     @IsString()
-    @ApiProperty({ example: 'Entrega', maxLength: 100, required: true })
+    @ApiProperty({ example: 'Entrega', required: true })
     readonly descricao: string;
 
-    @IsString()
-    @ApiProperty({ example: '01/01/2024', required: true })
-    readonly data: string;
+    @IsDateString()
+    @ApiProperty({ example: '2024-01-01', required: true })
+    readonly data: Date; /* Formato YYYY-MM-DD */
 }
