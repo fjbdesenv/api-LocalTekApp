@@ -5,7 +5,8 @@ import {
   IsPositive,
   IsString,
   Length,
-  MaxLength
+  MaxLength,
+  length
 } from 'class-validator';
 
 export class CreateClienteDto {
@@ -33,8 +34,13 @@ export class CreateClienteDto {
   @ApiProperty({ example: 'cliente@email.com', required: true })
   readonly email: string;
 
+  @IsNumber()
+  @IsPositive()
+  @ApiProperty({ example: 2, default: 2, description: '1 - CPF | 2 - CNPJ', required: true })
+  readonly tipo: number;
+
   @IsString()
-  @Length(18, 18)
-  @ApiProperty({ example: '00.000.000/0000-00', required: true })
+  @Length(14, 18)
+  @ApiProperty({ example: '000.000.000-00 ou 00.000.000/0000-00', required: true })
   readonly cnpj_cpf: string;
 }
