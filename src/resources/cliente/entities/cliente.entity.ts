@@ -21,12 +21,16 @@ export class Cliente extends DefaultEntity {
   @ApiProperty({ example: 'nome fantasia', required: true })
   nome_fantasia: String;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, unique: true })
   @ApiProperty({ example: 'cliente@email.com', required: true })
   email: string;
 
+  @Column({ type: 'tinyint', default: 2, comment: '1 - CPF | 2 - CNPJ' })
+  @ApiProperty({ example: 2, default: 2, required: true })
+  tipo: number;
+
   @Column({ length: 18, unique: true })
-  @ApiProperty({ example: '00.000.000/0000-00', required: true })
+  @ApiProperty({ example: '000.000.000-00 ou 00.000.000/0000-00', required: true })
   cnpj_cpf: string;
 
   /* Chaves estrangeiras */
