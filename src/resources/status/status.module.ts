@@ -9,4 +9,4 @@ import { statusProvider } from './status.provider';
   controllers: [StatusController],
   providers: [StatusService, ...statusProvider],
 })
-export class StatusModule {}
+export class StatusModule { }

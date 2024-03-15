@@ -90,11 +90,11 @@ export class AtendimentoArquivoController {
     @Param('codigo') codigo: number
   ) {
     const pathFile = await this.atendimentoArquivoService.findPathFile(codigoAtendimento, codigo);
-    
+
     if (pathFile) {
       const file = createReadStream(pathFile);
       return new StreamableFile(file);
-    } else{
+    } else {
       throw new NotFoundException();
     }
   }

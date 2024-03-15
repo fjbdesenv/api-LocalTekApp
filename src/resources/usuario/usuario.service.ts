@@ -16,8 +16,7 @@ export class UsuarioService {
   private criptografia: Criptografia;
 
   constructor(
-    @Inject('USUARIO_REPOSITORY')
-    private usuarioRepository: Repository<Usuario>,
+    @Inject('USUARIO_REPOSITORY') private usuarioRepository: Repository<Usuario>
   ) {
     this.usuario = undefined;
     this.error = new ErroSystem();
@@ -41,7 +40,7 @@ export class UsuarioService {
 
       return this.usuario;
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -56,7 +55,7 @@ export class UsuarioService {
 
       return usuarios;
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -68,7 +67,7 @@ export class UsuarioService {
       this.usuario.senha = undefined;
 
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.usuario) {
@@ -90,7 +89,7 @@ export class UsuarioService {
       }
 
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.usuario) {
@@ -124,7 +123,7 @@ export class UsuarioService {
 
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.usuario) {
@@ -144,7 +143,7 @@ export class UsuarioService {
         ? (this.usuario = new Usuario())
         : (this.usuario = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.usuario) {

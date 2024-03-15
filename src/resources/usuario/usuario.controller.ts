@@ -17,7 +17,7 @@ import { Usuario } from './entities/usuario.entity';
 @ApiTags('Usuário')
 @Controller('usuarios')
 export class UsuarioController {
-  constructor(private readonly usuarioService: UsuarioService) {}
+  constructor(private readonly usuarioService: UsuarioService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cadastrar um novo usuário' })

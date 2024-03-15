@@ -23,7 +23,7 @@ export class BancoService {
     try {
       return await this.bancoRepository.save(createBancoDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -31,7 +31,7 @@ export class BancoService {
     try {
       return await this.bancoRepository.find({ relations });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -39,7 +39,7 @@ export class BancoService {
     try {
       this.banco = await this.bancoRepository.findOneBy({ codigo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.banco) {
@@ -59,7 +59,7 @@ export class BancoService {
         await this.bancoRepository.update({ codigo }, updateBancoDto);
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.banco) {
@@ -79,7 +79,7 @@ export class BancoService {
         ? (this.banco = new Banco())
         : (this.banco = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.banco) {
