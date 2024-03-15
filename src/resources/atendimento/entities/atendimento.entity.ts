@@ -10,7 +10,7 @@ export class Atendimento extends DefaultEntity {
   @ApiProperty({ example: 1 })
   codigo_status: number;
 
-  @Column()
+  @Column({ unique: true })
   @ApiProperty({ example: 123456, required: true })
   codigo_atendimento_tek: number;
 

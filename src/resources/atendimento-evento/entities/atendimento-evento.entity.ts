@@ -18,7 +18,7 @@ export class AtendimentoEvento extends DefaultEntity {
     @ApiProperty({ example: 'Entrega', required: true })
     descricao: string;
 
-    @Column({ type: 'date', comment: 'formato YYYY-MM-DD'}) 
+    @Column({ type: 'date', comment: 'formato YYYY-MM-DD' })
     @ApiProperty({ example: '01/01/2024', required: true })
     data: Date;
 

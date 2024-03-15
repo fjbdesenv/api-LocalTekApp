@@ -29,7 +29,7 @@ export class AtendimentoService {
     try {
       return await this.atendimentoRepository.save(createAtendimentoDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -37,7 +37,7 @@ export class AtendimentoService {
     try {
       return await this.atendimentoRepository.find({ relations });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -45,7 +45,7 @@ export class AtendimentoService {
     try {
       this.atendimento = await this.atendimentoRepository.findOneBy({ codigo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimento) {
@@ -74,7 +74,7 @@ export class AtendimentoService {
         );
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimento) {
@@ -86,7 +86,7 @@ export class AtendimentoService {
 
   async remove(codigo: number): Promise<string> {
     try {
-      const result: DeleteResult = await this.atendimentoRepository.delete({codigo});
+      const result: DeleteResult = await this.atendimentoRepository.delete({ codigo });
 
       if (result.affected > 0) {
         /* Apaga a pasta de arquivos do atendimento */
@@ -99,7 +99,7 @@ export class AtendimentoService {
         this.atendimento = undefined;
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimento) {

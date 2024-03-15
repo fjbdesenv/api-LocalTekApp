@@ -34,7 +34,7 @@ export class AtendimentoArquivoService {
       return this.atendimentoArquivo;
     } catch (error) {
       if (error.statusCode !== 500) return;
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -49,7 +49,7 @@ export class AtendimentoArquivoService {
 
       return retorno;
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -58,7 +58,7 @@ export class AtendimentoArquivoService {
       this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOneBy({ codigo, codigo_atendimento: codigoAtendimento });
       if (this.atendimentoArquivo) this.atendimentoArquivo.url = undefined;
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoArquivo) {
@@ -72,7 +72,7 @@ export class AtendimentoArquivoService {
     try {
       this.atendimentoArquivo = await this.atendimentoArquivoRepository.findOneBy({ codigo, codigo_atendimento: codigoAtendimento });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoArquivo) {
@@ -114,7 +114,7 @@ export class AtendimentoArquivoService {
 
     } catch (error) {
       if (error.statusCode !== 500) return;
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoArquivo) {
@@ -135,7 +135,7 @@ export class AtendimentoArquivoService {
         this.atendimentoArquivo = undefined;
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoArquivo) {

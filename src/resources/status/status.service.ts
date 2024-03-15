@@ -21,7 +21,7 @@ export class StatusService {
     try {
       return await this.statusRepository.save(createStatusDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -29,7 +29,7 @@ export class StatusService {
     try {
       return await this.statusRepository.find();
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -37,7 +37,7 @@ export class StatusService {
     try {
       return await this.statusRepository.findBy({ tipo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -45,7 +45,7 @@ export class StatusService {
     try {
       this.status = await this.statusRepository.findOneBy({ codigo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.status) {
@@ -68,7 +68,7 @@ export class StatusService {
         await this.statusRepository.update({ codigo }, updateStatusDto);
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.status) {
@@ -88,7 +88,7 @@ export class StatusService {
         ? (this.status = new Status())
         : (this.status = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.status) {

@@ -17,7 +17,7 @@ export class AppController {
 
   @Get('health')
   @ApiOperation({ summary: 'Rota para verificar a saúde da aplicação' })
-  @ApiResponse({ status: 200, description: 'OK', type: MessageHealth})
+  @ApiResponse({ status: 200, description: 'OK', type: MessageHealth })
   health(): object {
     return this.appService.getMessageApi();
   }
