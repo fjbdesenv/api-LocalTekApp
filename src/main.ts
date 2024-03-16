@@ -14,6 +14,14 @@ import { configApp } from './config/configApp';
 async function start() {
   const app = await NestFactory.create(AppModule);
 
+  // CORS
+  app.enableCors({
+    origin: '*',
+    methods: ['POST', 'PUT', 'GET', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Authorization', 'Content-Type', 'Accept']
+
+  });
+
   // Validação de campos
   app.useGlobalPipes(
     new ValidationPipe({
@@ -23,21 +31,12 @@ async function start() {
     }),
   );
 
-  const document = SwaggerModule.createDocument(app, configApp);
-  SwaggerModule.setup('doc', app, document);
-
-  app.enableCors({
-    origin: '*',
-    methods: ['POST', 'PUT', 'GET', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Authorization', 'Content-Type', 'Accept']
-
-  });
-
   app.use(
     helmet(),
   );
 
-
+  const document = SwaggerModule.createDocument(app, configApp);
+  SwaggerModule.setup('doc', app, document);
 
   await app.listen(process.env.APP_PORT);
 }

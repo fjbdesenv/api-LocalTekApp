@@ -9,4 +9,4 @@ import { bancoProvider } from './banco.provider';
   controllers: [BancoController],
   providers: [BancoService, ...bancoProvider],
 })
-export class BancoModule {}
+export class BancoModule { }

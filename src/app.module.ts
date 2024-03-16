@@ -25,6 +25,7 @@ const configGetEnv: ConfigModuleOptions = {
 
 @Module({
   imports: [
+    ConfigModule.forRoot(configGetEnv),
     AuthModule,
     UsuarioModule,
     ClienteModule,
@@ -36,7 +37,6 @@ const configGetEnv: ConfigModuleOptions = {
     RemessaFinanceiraModule,
     StatusModule,
     JwtModule,
-    ConfigModule.forRoot(configGetEnv),
   ],
   controllers: [AppController],
   providers: [AppService],

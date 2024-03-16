@@ -11,7 +11,7 @@ const multerConfig = {
   fileFilter: (req, file, cb) => {
 
     /* Validação de tipo */
-    if (file.originalname.match(/^.*\.(jpg|png|jpeg|cds|pdf|odt|doc|docx)$/))
+    if (file.originalname.match(/^.*\.(jpg|png|jpeg|cds|pdf|odt|doc|docx|txt)$/))
       cb(null, true);
     else {
       cb(new MulterError("LIMIT_UNEXPECTED_FILE", 'arquivo'), false);

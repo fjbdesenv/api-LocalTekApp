@@ -24,7 +24,7 @@ export class ClienteService {
     try {
       return await this.clienteRepository.save(createClienteDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -32,7 +32,7 @@ export class ClienteService {
     try {
       return await this.clienteRepository.find({ relations });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -40,7 +40,7 @@ export class ClienteService {
     try {
       this.cliente = await this.clienteRepository.findOneBy({ codigo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.cliente) {
@@ -63,7 +63,7 @@ export class ClienteService {
         await this.clienteRepository.update({ codigo }, updateClienteDto);
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.cliente) {
@@ -83,7 +83,7 @@ export class ClienteService {
         ? (this.cliente = new Cliente())
         : (this.cliente = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.cliente) {

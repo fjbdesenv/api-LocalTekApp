@@ -23,7 +23,7 @@ export class CnabService {
     try {
       return await this.cnabRepository.save(createCnabDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -31,7 +31,7 @@ export class CnabService {
     try {
       return await this.cnabRepository.find({ relations });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -39,7 +39,7 @@ export class CnabService {
     try {
       this.cnab = await this.cnabRepository.findOneBy({ codigo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.cnab) {
@@ -59,7 +59,7 @@ export class CnabService {
         await this.cnabRepository.update({ codigo }, updateCnabDto);
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.cnab) {
@@ -75,7 +75,7 @@ export class CnabService {
 
       result.affected > 0 ? (this.cnab = new Cnab()) : (this.cnab = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.cnab) {

@@ -5,4 +5,4 @@ import { databaseProviders } from './dados.providers';
   providers: [...databaseProviders],
   exports: [...databaseProviders],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

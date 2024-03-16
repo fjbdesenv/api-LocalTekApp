@@ -23,7 +23,7 @@ export class AtendimentoEventoService {
     try {
       return await this.AtendimentoEventoRepository.save(createAtendimentoEventoDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -31,7 +31,7 @@ export class AtendimentoEventoService {
     try {
       return await this.AtendimentoEventoRepository.find({ relations, where: { codigo_atendimento: codigoAtendimento } });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -39,7 +39,7 @@ export class AtendimentoEventoService {
     try {
       this.atendimentoEvento = await this.AtendimentoEventoRepository.findOneBy({ codigo, codigo_atendimento: codigoAtendimento });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoEvento) {
@@ -60,7 +60,7 @@ export class AtendimentoEventoService {
         await this.AtendimentoEventoRepository.update({ codigo }, updateAtendimentoEventoDto);
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoEvento) {
@@ -76,7 +76,7 @@ export class AtendimentoEventoService {
 
       result.affected > 0 ? (this.atendimentoEvento = new AtendimentoEvento()) : (this.atendimentoEvento = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.atendimentoEvento) {

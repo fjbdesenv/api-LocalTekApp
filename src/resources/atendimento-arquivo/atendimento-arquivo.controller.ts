@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Patch, Param, Delete, UseInterceptors, UploadedFile, Res, NotFoundException, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Delete, UseInterceptors, UploadedFile, Res, NotFoundException, Body, StreamableFile } from '@nestjs/common';
 import { AtendimentoArquivoService } from './atendimento-arquivo.service';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AtendimentoArquivo } from './entities/atendimento-arquivo.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from 'src/config/configMulter';
+import { createReadStream } from 'fs';
+import { File } from 'buffer';
 
 @ApiBearerAuth()
 @ApiTags('Atendimento Arquivo')
@@ -59,7 +61,7 @@ export class AtendimentoArquivoController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Consultar todos os arquivos de um atendimento' })
+  @ApiOperation({ summary: 'Consultar dados de todos os arquivos' })
   @ApiResponse({ status: 200, description: 'OK', type: [AtendimentoArquivo] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll(@Param('codigoAtendimento') codigoAtendimento: number) {
@@ -67,7 +69,7 @@ export class AtendimentoArquivoController {
   }
 
   @Get(':codigo')
-  @ApiOperation({ summary: 'Consultar um arquivo de um atendimento' })
+  @ApiOperation({ summary: 'Consultar dados de um arquivo' })
   @ApiResponse({ status: 200, description: 'OK', type: AtendimentoArquivo })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -76,6 +78,25 @@ export class AtendimentoArquivoController {
     @Param('codigo') codigo: number
   ) {
     return this.atendimentoArquivoService.findByCodigo(codigoAtendimento, codigo);
+  }
+
+  @Get(':codigo/file')
+  @ApiOperation({ summary: 'Retorna o arquivo' })
+  @ApiResponse({ status: 200, description: 'OK', type: File })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  @ApiResponse({ status: 401, description: 'Unauthorize' })
+  async getFile(
+    @Param('codigoAtendimento') codigoAtendimento: number,
+    @Param('codigo') codigo: number
+  ) {
+    const pathFile = await this.atendimentoArquivoService.findPathFile(codigoAtendimento, codigo);
+
+    if (pathFile) {
+      const file = createReadStream(pathFile);
+      return new StreamableFile(file);
+    } else {
+      throw new NotFoundException();
+    }
   }
 
   @Patch(':codigo')
@@ -92,7 +113,7 @@ export class AtendimentoArquivoController {
     },
   })
   @ApiConsumes('multipart/form-data')
-  @ApiOperation({ summary: 'Editar um arquivo um atendimento' })
+  @ApiOperation({ summary: 'Editar um arquivo' })
   @ApiResponse({ status: 200, description: 'OK', type: AtendimentoArquivo })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -127,7 +148,7 @@ export class AtendimentoArquivoController {
   }
 
   @Delete(':codigo')
-  @ApiOperation({ summary: 'Deletar um arquivo um atendimento' })
+  @ApiOperation({ summary: 'Deletar um arquivo' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

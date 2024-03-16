@@ -7,8 +7,8 @@ import { usuarioProvider } from 'src/resources/usuario/usuario.provider';
 import { DatabaseModule } from 'src/dataBase/dados.module';
 
 @Module({
-  imports:[DatabaseModule, JwtModule],
+  imports: [DatabaseModule, JwtModule],
   controllers: [AuthController],
   providers: [AuthService, UsuarioService, ...usuarioProvider],
 })
-export class AuthModule {}
+export class AuthModule { }

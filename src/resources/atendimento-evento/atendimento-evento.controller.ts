@@ -25,7 +25,7 @@ export class AtendimentoEventoController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Consultar todos os eventos de um atendimento' })
+  @ApiOperation({ summary: 'Consultar todos os eventos' })
   @ApiResponse({ status: 200, description: 'OK', type: [AtendimentoEvento] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   findAll(@Param('codigoAtendimento') codigoAtendimento: number) {
@@ -33,7 +33,7 @@ export class AtendimentoEventoController {
   }
 
   @Get(':codigo')
-  @ApiOperation({ summary: 'Consultar um evento de um atendimento' })
+  @ApiOperation({ summary: 'Consultar um evento' })
   @ApiResponse({ status: 200, description: 'OK', type: AtendimentoEvento })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorize' })
@@ -45,7 +45,7 @@ export class AtendimentoEventoController {
   }
 
   @Patch(':codigo')
-  @ApiOperation({ summary: 'Editar um evento um atendimento' })
+  @ApiOperation({ summary: 'Editar um evento' })
   @ApiResponse({ status: 200, description: 'OK', type: AtendimentoEvento })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -60,7 +60,7 @@ export class AtendimentoEventoController {
   }
 
   @Delete(':codigo')
-  @ApiOperation({ summary: 'Deletar um evento um atendimento' })
+  @ApiOperation({ summary: 'Deletar um evento' })
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

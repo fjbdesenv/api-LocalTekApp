@@ -26,7 +26,7 @@ export class RemessaFinanceiraService {
     try {
       return await this.remessaFinanceiraRepository.save(createConfRemessaDto);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -34,7 +34,7 @@ export class RemessaFinanceiraService {
     try {
       return await this.remessaFinanceiraRepository.find({ relations });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
   }
 
@@ -42,7 +42,7 @@ export class RemessaFinanceiraService {
     try {
       this.remessaFinanceira = await this.remessaFinanceiraRepository.findOneBy({ codigo });
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.remessaFinanceira) {
@@ -71,7 +71,7 @@ export class RemessaFinanceiraService {
         );
       }
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.remessaFinanceira) {
@@ -91,7 +91,7 @@ export class RemessaFinanceiraService {
         ? (this.remessaFinanceira = new RemessaFinanceira())
         : (this.remessaFinanceira = undefined);
     } catch (error) {
-      this.error.erro500(error.message);
+      this.error.erroMapeamento(error);
     }
 
     if (!this.remessaFinanceira) {
