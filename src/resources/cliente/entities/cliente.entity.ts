@@ -9,7 +9,7 @@ export class Cliente extends DefaultEntity {
   @ApiProperty({ example: 1 })
   codigo_status: number;
 
-  @Column()
+  @Column({ unique: true })
   @ApiProperty({ example: 1000, minimum: 1 })
   codigo_cliente_tek: number;
 

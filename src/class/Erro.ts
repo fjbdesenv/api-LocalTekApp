@@ -1,4 +1,4 @@
-import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 
 export class ErroSystem {
 
@@ -14,28 +14,32 @@ export class ErroSystem {
   erroForeignKey(error: any) {
     const message: string = error.message;
     const foreignKey = message.slice(message.indexOf('FOREIGN KEY (') + 13, message.indexOf(') REFERENCES'));
-    const msgReference = `Foreign key ${foreignKey} was not found.`;
+    const msgReferenceBR = `Chave estrangeira ${foreignKey} não foi encontrada.`;
+    const msgReferenceEN = `Foreign key ${foreignKey} was not found.`;
 
-    throw new BadRequestException({
+    throw new ConflictException({
       message: [
-        msgReference
+        msgReferenceEN,
+        msgReferenceBR
       ],
-      error: "Bad Request",
-      statusCode: 400,
+      error: "Conflict",
+      statusCode: 409,
       errno: 1
     });
   }
 
   erroIsReference(error: any) {
     const message: string = error.message;
-    const msgReference = `It is not possible to delete or update because the field ${message.slice(message.indexOf('FOREIGN KEY (') + 13, message.indexOf(') REFERENCES'))} is referenced in another table.`;
+    const msgReferenceBR = `Não é possível excluir ou atualizar porque o campo ${message.slice(message.indexOf('FOREIGN KEY (') + 13, message.indexOf(') REFERENCES'))}, é referenciado em outro lugar.`;
+    const msgReferenceEN = `It is not possible to delete or update because the field ${message.slice(message.indexOf('FOREIGN KEY (') + 13, message.indexOf(') REFERENCES'))}, is referenced in another place.`;
 
-    throw new BadRequestException({
+    throw new ConflictException({
       message: [
-        msgReference
+        msgReferenceEN,
+        msgReferenceBR
       ],
-      error: "Bad Request",
-      statusCode: 400,
+      error: "Conflict",
+      statusCode: 409,
       errno: 2
     });
   }
@@ -43,14 +47,16 @@ export class ErroSystem {
   erroDuplicate(error: any) {
     const message: string = error.message;
     const field: string = message.slice(message.indexOf('\''), message.indexOf(' for'));
-    const msgDuplicate: string = `The value ${field} is duplicated and cannot be registered.`;
+    const msgDuplicateBR: string = `O valor ${field} é duplicado e não pode ser registrado.`;
+    const msgDuplicateEN: string = `The value ${field} is duplicated and cannot be registered.`;
 
-    throw new BadRequestException({
+    throw new ConflictException({
       message: [
-        msgDuplicate
+        msgDuplicateEN,
+        msgDuplicateBR
       ],
-      error: "Bad Request",
-      statusCode: 400,
+      error: "Conflict",
+      statusCode: 409,
       errno: 3
     });
   }
